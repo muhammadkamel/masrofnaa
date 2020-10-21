@@ -88,10 +88,11 @@ class _CreateAWeekState extends State<CreateAWeek> {
 
                   child: Center(
                     child: Text(
-                      '${myMasrofs.weekMoney}',
+                      '${(myMasrofs.weekMoney).toStringAsFixed(1)}',
                       style: kText.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
+                        fontFamily: 'Montserrat',
                       ),
                     ),
                   ),

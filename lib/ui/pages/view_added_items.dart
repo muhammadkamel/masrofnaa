@@ -277,15 +277,29 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                       // color: Colors.red,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 3.0),
-                        child: Text(
-                          'السعر: ${myMasrofs.price}',
-                          overflow: TextOverflow.visible,
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.blueGrey[300],
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${myMasrofs.price}',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blueGrey[300],
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                            Text(
+                              'العدد: ',
+                              overflow: TextOverflow.visible,
+                              textAlign: TextAlign.right,
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blueGrey[300],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -297,14 +311,29 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     // No of Items
                     Padding(
                       padding: const EdgeInsets.only(left: 3.0),
-                      child: Text(
-                        'العدد: ${myMasrofs.noItems}',
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blueGrey[300],
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${myMasrofs.noItems}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blueGrey[300],
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                          Text(
+                            'السعر: ',
+                            overflow: TextOverflow.visible,
+                            textAlign: TextAlign.right,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blueGrey[300],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
 
@@ -315,15 +344,29 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 3.0),
-                        child: Text(
-                          'المجموع: ${myMasrofs.total}',
-                          overflow: TextOverflow.visible,
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.blueGrey[300],
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${(myMasrofs.total).toStringAsFixed(1)}',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blueGrey[300],
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                            Text(
+                              'المجموع: ',
+                              overflow: TextOverflow.visible,
+                              textAlign: TextAlign.right,
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blueGrey[300],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -334,14 +377,29 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     // No of Items
                     Padding(
                       padding: const EdgeInsets.only(left: 3.0),
-                      child: Text(
-                        'التاريخ: $myDate',
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blueGrey[300],
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '$myDate',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blueGrey[300],
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                          Text(
+                            'التاريخ: ',
+                            overflow: TextOverflow.visible,
+                            textAlign: TextAlign.right,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blueGrey[300],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

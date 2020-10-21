@@ -33,16 +33,32 @@ const String kNoPrice = 'لم يتم إضافة أي منتج';
 const String kPriceContent = 'المبلغ الإجمالي';
 const String kPriceEG = 'جنية';
 
-const kInputDecoration = InputDecoration(
+final kInputDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
   hintText: '',
   hintStyle: TextStyle(
     fontSize: 16,
+    fontFamily: 'Montserrat',
   ),
   border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(100.0),
     borderSide: BorderSide(
       width: 2,
-      color: Colors.orange,
+      color: Colors.blue,
+    ),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(100.0),
+    borderSide: BorderSide(
+      width: 2,
+      color: Colors.blue,
+    ),
+  ),
+  disabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(100.0),
+    borderSide: BorderSide(
+      width: 2,
+      color: Colors.green,
     ),
   ),
 );

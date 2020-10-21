@@ -109,6 +109,9 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                      ),
                       focusNode: focus,
                       onChanged: (val) {
                         setState(() {
@@ -131,6 +134,9 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                      ),
                       onChanged: (val) {
                         setState(() {
                           noItems = double.parse(val);
@@ -141,7 +147,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                       inputFormatters: kInputNoFormats,
                       decoration: kInputDecoration.copyWith(
                         hintText: 'العدد',
-                        hintStyle: TextStyle(),
                       ),
                     ),
                   ),
