@@ -25,8 +25,11 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
   final _productController = TextEditingController();
   final _priceController = TextEditingController();
   final _noItemsController = TextEditingController();
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final formKey = new GlobalKey<FormState>();
+  bool isPrice = true;
+  bool isNoItems = true;
 
-  bool isNumber = true;
   @override
   void initState() {
     super.initState();
@@ -76,17 +79,58 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
   @override
   void dispose() {
     _productController.dispose();
+    _priceController.dispose();
+    _noItemsController.dispose();
+
     super.dispose();
+  }
+
+  void _showSnackBar(String text) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
+
+  _submit() async {
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+      Masrofna myMasrof = Masrofna.fromMyMap({
+        'product': product,
+        'price': price,
+        'noItems': noItems,
+        'weekMoney': weekMoney,
+      });
+      var helperProvider = context.read<DBHelper>();
+      await helperProvider.createMasrofna(myMasrof, widget.myTable);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ViewMasrofna(
+            myTable: widget.myTable,
+            tableTitle: widget.tableTitle,
+            appBarTitle: widget.appBarTitle,
+          ),
+        ),
+      );
+    }
+    // Dismiss the keyboard
+    var currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+
+    // _showSnackBar("Data saved successfully");
   }
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    var helperProvider = context.watch<DBHelper>();
-
     return SafeArea(
       child: Scaffold(
-        // resizeToAvoidBottomPadding: false,
+        key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
@@ -128,6 +172,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
             height: screenSize.height,
             // color: Colors.red,
             child: Form(
+              key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,140 +180,20 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   SizedBox(
                     height: 20,
                   ),
-                  // Name input form
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (val) {
-                        try {
-                          if (val.isEmpty) {
-                            return "Please enter the number";
-                          } else {
-                            return null;
-                          }
-                        } catch (e) {
-                          return 'TTTT';
-                        }
-                      },
-                      controller: _productController,
-                      autofocus: true,
-                      onChanged: (val) {
-                        setState(() {
-                          product = val;
-                        });
-                      },
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'GE',
-                      ),
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: kInputDecoration.copyWith(
-                        hintText: 'إسم المنتج',
-                        alignLabelWithHint: true,
-                        hintStyle: TextStyle(
-                          fontFamily: 'GE',
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Product
+                  _product(),
                   SizedBox(
                     height: 20,
                   ),
 
-                  // Content input form
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Directionality(
-                      textDirection:
-                          isNumber ? TextDirection.ltr : TextDirection.rtl,
-                      child: TextFormField(
-                        onFieldSubmitted: (val) {
-                          setState(() {
-                            isNumber = false;
-                            print(val);
-                          });
-                        },
-                        onEditingComplete: () {
-                          setState(() {
-                            isNumber = false;
-                            print('Done');
-                          });
-                        },
-                        validator: (val) {
-                          try {
-                            if (val.isEmpty) {
-                              return "Please enter the number";
-                            } else {
-                              return null;
-                            }
-                          } catch (e) {
-                            return 'TTTT';
-                          }
-                        },
-                        enableInteractiveSelection: false,
-                        controller: _priceController,
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                        ),
-                        focusNode: focus,
-                        onChanged: (val) {
-                          setState(() {
-                            price = double.parse(val);
-                          });
-                        },
-                        // textAlign: TextAlign.right,
-                        inputFormatters: kInputNoFormats,
-                        keyboardType: TextInputType.number,
-                        decoration: kInputDecoration.copyWith(
-                          hintText: 'السعر',
-                          hintStyle: TextStyle(
-                            fontFamily: 'GE',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Price
+                  _price(),
                   SizedBox(
                     height: 20,
                   ),
 
-                  // Level
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (val) {
-                        try {
-                          if (val.isEmpty) {
-                            return "Please enter the number";
-                          } else {
-                            return null;
-                          }
-                        } catch (e) {
-                          return 'TTTT';
-                        }
-                      },
-                      controller: _noItemsController,
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                      ),
-                      onChanged: (val) {
-                        setState(() {
-                          noItems = double.parse(val);
-                        });
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.right,
-                      inputFormatters: kInputNoFormats,
-                      decoration: kInputDecoration.copyWith(
-                        hintText: 'العدد',
-                        hintStyle: TextStyle(
-                          fontFamily: 'GE',
-                        ),
-                      ),
-                    ),
-                  ),
-
+                  // No Items
+                  _noItems(),
                   SizedBox(height: 20),
 
                   // Submit
@@ -282,17 +207,9 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                         borderRadius: BorderRadius.circular(1000),
                       ),
                       onPressed: () async {
-                        Masrofna myMasrof = Masrofna.fromMyMap({
-                          'product': product,
-                          'price': price,
-                          'noItems': noItems,
-                          'weekMoney': weekMoney,
-                        });
-                        await helperProvider.createMasrofna(
-                            myMasrof, widget.myTable);
-                        setState(() {
-                          Navigator.pop(context);
-                        });
+                        await _submit();
+                        setState(() {});
+                        // Navigator.pop(context);
                       },
                       child: Text(
                         'حفظ',
@@ -308,6 +225,127 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _product() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: TextFormField(
+          validator: (val) {
+            if (val.isEmpty) {
+              return "يجب عليك اضافة منتج";
+            } else {
+              return null;
+            }
+          },
+          controller: _productController,
+          onChanged: (val) {
+            setState(() {
+              product = val;
+            });
+          },
+          autofocus: true,
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'GE',
+          ),
+          decoration: kInputDecoration.copyWith(
+            hintText: 'إسم المنتج',
+            alignLabelWithHint: true,
+            hintStyle: TextStyle(
+              fontFamily: 'GE',
+            ),
+            errorStyle: TextStyle(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _price() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: TextFormField(
+          validator: (val) {
+            if (val.length == 0) {
+              return "يجب عليك اضافة سعر المنتج";
+            } else {
+              return null;
+            }
+          },
+          controller: _priceController,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+          ),
+          onChanged: (val) {
+            setState(() {
+              if (_priceController.text.isEmpty) {
+                isPrice = true;
+              } else {
+                isPrice = false;
+                price = double.parse(val);
+              }
+            });
+          },
+          keyboardType: TextInputType.number,
+          inputFormatters: kInputNoFormats,
+          textAlign: isPrice ? TextAlign.right : TextAlign.left, // Inside
+          textDirection: TextDirection.rtl,
+          decoration: kInputDecoration.copyWith(
+            hintText: 'السعر',
+            hintStyle: TextStyle(
+              fontFamily: 'GE',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _noItems() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: TextFormField(
+          validator: (val) {
+            if (val.length == 0) {
+              return "يجب عليك اضافة عدد المنتج";
+            } else {
+              return null;
+            }
+          },
+          controller: _noItemsController,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+          ),
+          onChanged: (val) {
+            setState(() {
+              if (_noItemsController.text.isEmpty) {
+                isNoItems = true;
+              } else {
+                isNoItems = false;
+                noItems = double.parse(val);
+              }
+            });
+          },
+          keyboardType: TextInputType.number,
+          inputFormatters: kInputNoFormats,
+          textAlign: isNoItems ? TextAlign.right : TextAlign.left, // Inside
+          textDirection: TextDirection.rtl,
+          decoration: kInputDecoration.copyWith(
+            hintText: 'العدد',
+            hintStyle: TextStyle(
+              fontFamily: 'GE',
             ),
           ),
         ),

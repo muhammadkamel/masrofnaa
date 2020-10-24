@@ -352,7 +352,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              '${(myMasrofs.total).toStringAsFixed(1)}',
+                              '${(myMasrofs.total)}',
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.blueGrey[300],

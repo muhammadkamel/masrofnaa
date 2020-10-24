@@ -45,34 +45,34 @@ class DBHelper with ChangeNotifier {
       //create tables
       db.execute(
           '''create table $tableOne ($id integer primary key autoincrement,
-          $product varchar(50),
-          $price REAL,
-          $noItems REAL,
+          $product varchar(50) NOT NULL,
+          $price REAL NOT NULL,
+          $noItems REAL NOT NULL,
           $total REAL,
           $weekMoney REAL)''');
       // Table two
       db.execute(
           '''create table $tableTwo ($id integer primary key autoincrement,
-          $product varchar(50),
-          $price REAL,
-          $noItems REAL,
+          $product varchar(50) NOT NULL,
+          $price REAL NOT NULL,
+          $noItems REAL NOT NULL,
           $total REAL,
           $weekMoney REAL)''');
 
       // Table three
       db.execute(
           '''create table $tableThree ($id integer primary key autoincrement,
-          $product varchar(50),
-          $price REAL,
-          $noItems REAL,
+          $product varchar(50) NOT NULL,
+          $price REAL NOT NULL,
+          $noItems REAL NOT NULL,
           $total REAL,
           $weekMoney REAL)''');
       // Table four
       db.execute(
           '''create table $tableFour ($id integer primary key autoincrement,
-          $product varchar(50),
-          $price REAL,
-          $noItems REAL,
+          $product varchar(50) NOT NULL,
+          $price REAL NOT NULL,
+          $noItems REAL NOT NULL,
           $total REAL,
           $weekMoney REAL)''');
     });
@@ -85,8 +85,12 @@ class DBHelper with ChangeNotifier {
   // Create a table
   Future<int> createMasrofna(Masrofna myMasrof, String table) async {
     Database db = await createDatabase(table);
-    var result = await db.insert(table, myMasrof.convertToMap());
-    return result;
+    try {
+      var result = await db.insert(table, myMasrof.convertToMap());
+      return result;
+    } on DatabaseException catch (e) {
+      return e.getResultCode();
+    }
   }
 
   // Get all data from database
