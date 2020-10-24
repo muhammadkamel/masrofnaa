@@ -101,7 +101,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       child: Text("نعم"),
       onPressed: () {
         setState(() {
-          helperProvider.delete(
+          helperProvider.deleteMasrof(
             myMasrofs.id,
             widget.myTable,
           );
@@ -229,13 +229,16 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             child: IconButton(
                               icon: kEditIcon,
                               onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (context) => UpdateFirstWeek(
-                                //       masrofna1: myMasrofs,
-                                //     ),
-                                //   ),
-                                // );
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => UpdateMasrof(
+                                      appBarTitle: widget.appBarTitle,
+                                      tableTitle: widget.tableTitle,
+                                      myTable: widget.myTable,
+                                      masrof: myMasrofs,
+                                    ),
+                                  ),
+                                );
                               },
                             ),
                           ),
@@ -290,7 +293,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                               ),
                             ),
                             Text(
-                              'العدد: ',
+                              'السعر: ',
                               overflow: TextOverflow.visible,
                               textAlign: TextAlign.right,
                               textDirection: TextDirection.rtl,
@@ -324,7 +327,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             ),
                           ),
                           Text(
-                            'السعر: ',
+                            'العدد: ',
                             overflow: TextOverflow.visible,
                             textAlign: TextAlign.right,
                             textDirection: TextDirection.rtl,

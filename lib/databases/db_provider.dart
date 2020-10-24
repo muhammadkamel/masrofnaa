@@ -23,8 +23,6 @@ class Masrofna with ChangeNotifier {
     'الإسبوع الربع',
   ];
 
-  Masrofna();
-
   // Named Constructor
   Masrofna.fromMyMap(Map<String, dynamic> myData) {
     _id = myData['id'];
@@ -51,6 +49,16 @@ class Masrofna with ChangeNotifier {
     _noItems = await objec['noItems'];
     _total = await objec['total'];
     _weekMoney = await objec['weekMoney'];
+  }
+
+  // Constructor
+  Masrofna(dynamic objec) {
+    _id = objec['id'];
+    _product = objec['product'];
+    _price = objec['price'];
+    _noItems = objec['noItems'];
+    _total = objec['total'];
+    _weekMoney = objec['weekMoney'];
   }
 
   Map<String, dynamic> convertToMap() {

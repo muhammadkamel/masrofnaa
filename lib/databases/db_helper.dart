@@ -82,16 +82,16 @@ class DBHelper with ChangeNotifier {
     return _db;
   }
 
-  // First
+  // Create a table
   Future<int> createMasrofna(Masrofna myMasrof, String table) async {
     Database db = await createDatabase(table);
     var result = await db.insert(table, myMasrof.convertToMap());
     return result;
   }
 
+  // Get all data from database
   Future<List> getAllMasrof(String table) async {
     Database db = await createDatabase(table);
-    // var getATable = await db.query(table);
     var result = await db.rawQuery('''SELECT $id,
     $product,
     $price,
@@ -102,11 +102,15 @@ class DBHelper with ChangeNotifier {
     return result;
   }
 
+  // Get a week
   Future<List> getWeekMoney(String table) async {
     Database db = await createDatabase(table);
 
-    var result = await db.rawQuery(
-        'SELECT $id, $total, (SELECT SUM($total) from $table) from $table AS $weekMoney');
+    var result = await db.rawQuery('''
+        SELECT $id, (SELECT SUM($price * $noItems)
+        from $table)
+        $weekMoney from $table
+        ''');
     return result;
   }
 
@@ -117,7 +121,7 @@ class DBHelper with ChangeNotifier {
     return result;
   }
 
-  Future<int> delete(int id, String table) async {
+  Future<int> deleteMasrof(int id, String table) async {
     Database db = await createDatabase(table);
     return db.delete(table, where: 'id = ?', whereArgs: [id]);
   }

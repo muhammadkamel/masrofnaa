@@ -15,6 +15,7 @@ const kText = TextStyle(
   color: Colors.blue,
   fontSize: 18,
   height: 1.7,
+  fontFamily: 'GE',
 );
 
 const kDeleteIcon = Icon(
@@ -35,7 +36,6 @@ const String kPriceEG = 'جنية';
 
 final kInputDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-  hintText: '',
   hintStyle: TextStyle(
     fontSize: 16,
     fontFamily: 'Montserrat',

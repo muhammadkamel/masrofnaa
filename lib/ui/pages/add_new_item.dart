@@ -22,11 +22,61 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
   double price, noItems, weekMoney;
   DateTime date;
   var focus;
+  final _productController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _noItemsController = TextEditingController();
 
+  bool isNumber = true;
   @override
   void initState() {
     super.initState();
     focus = FocusNode();
+    _productController.addListener(() {
+      _productController.value = _productController.value.copyWith(
+        text: _productController.text,
+        selection: TextSelection.fromPosition(
+          TextPosition(
+            offset: _productController.text.length,
+          ),
+        ),
+      );
+    });
+    _priceController.addListener(() {
+      _priceController.value = _priceController.value.copyWith(
+        text: _priceController.text,
+        selection: TextSelection.fromPosition(
+          TextPosition(
+            offset: _priceController.text.length,
+          ),
+        ),
+      );
+    });
+    _noItemsController.addListener(() {
+      _noItemsController.value = _noItemsController.value.copyWith(
+        text: _noItemsController.text,
+        selection: TextSelection.fromPosition(
+          TextPosition(
+            offset: _noItemsController.text.length,
+          ),
+        ),
+      );
+    });
+  }
+
+  clearText() {
+    setState(() {
+      _productController.buildTextSpan(
+        style: TextStyle(
+          color: Colors.greenAccent,
+        ),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _productController.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,15 +139,36 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (val) {
+                        try {
+                          if (val.isEmpty) {
+                            return "Please enter the number";
+                          } else {
+                            return null;
+                          }
+                        } catch (e) {
+                          return 'TTTT';
+                        }
+                      },
+                      controller: _productController,
                       autofocus: true,
                       onChanged: (val) {
                         setState(() {
                           product = val;
                         });
                       },
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'GE',
+                      ),
+                      textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       decoration: kInputDecoration.copyWith(
                         hintText: 'إسم المنتج',
+                        alignLabelWithHint: true,
+                        hintStyle: TextStyle(
+                          fontFamily: 'GE',
+                        ),
                       ),
                     ),
                   ),
@@ -108,21 +179,53 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   // Content input form
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                      ),
-                      focusNode: focus,
-                      onChanged: (val) {
-                        setState(() {
-                          price = double.parse(val);
-                        });
-                      },
-                      textAlign: TextAlign.right,
-                      inputFormatters: kInputNoFormats,
-                      keyboardType: TextInputType.number,
-                      decoration: kInputDecoration.copyWith(
-                        hintText: 'السعر',
+                    child: Directionality(
+                      textDirection:
+                          isNumber ? TextDirection.ltr : TextDirection.rtl,
+                      child: TextFormField(
+                        onFieldSubmitted: (val) {
+                          setState(() {
+                            isNumber = false;
+                            print(val);
+                          });
+                        },
+                        onEditingComplete: () {
+                          setState(() {
+                            isNumber = false;
+                            print('Done');
+                          });
+                        },
+                        validator: (val) {
+                          try {
+                            if (val.isEmpty) {
+                              return "Please enter the number";
+                            } else {
+                              return null;
+                            }
+                          } catch (e) {
+                            return 'TTTT';
+                          }
+                        },
+                        enableInteractiveSelection: false,
+                        controller: _priceController,
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                        ),
+                        focusNode: focus,
+                        onChanged: (val) {
+                          setState(() {
+                            price = double.parse(val);
+                          });
+                        },
+                        // textAlign: TextAlign.right,
+                        inputFormatters: kInputNoFormats,
+                        keyboardType: TextInputType.number,
+                        decoration: kInputDecoration.copyWith(
+                          hintText: 'السعر',
+                          hintStyle: TextStyle(
+                            fontFamily: 'GE',
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -134,6 +237,18 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: (val) {
+                        try {
+                          if (val.isEmpty) {
+                            return "Please enter the number";
+                          } else {
+                            return null;
+                          }
+                        } catch (e) {
+                          return 'TTTT';
+                        }
+                      },
+                      controller: _noItemsController,
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                       ),
@@ -147,6 +262,9 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                       inputFormatters: kInputNoFormats,
                       decoration: kInputDecoration.copyWith(
                         hintText: 'العدد',
+                        hintStyle: TextStyle(
+                          fontFamily: 'GE',
+                        ),
                       ),
                     ),
                   ),
@@ -161,7 +279,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                     child: FlatButton(
                       color: Colors.blueAccent,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(1000),
                       ),
                       onPressed: () async {
                         Masrofna myMasrof = Masrofna.fromMyMap({

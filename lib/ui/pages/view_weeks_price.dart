@@ -146,8 +146,14 @@ class _CreateAWeekState extends State<CreateAWeek> {
           future: providerHelper.getAllMasrof(widget.myTable),
           builder: (context, snapshot) {
             try {
+              var screenSize = MediaQuery.of(context).size;
+              var orientation = MediaQuery.of(context).orientation;
+
               if (!snapshot.hasData) {
-                return Center(
+                return WeekView(
+                  orientation: orientation,
+                  screenSize: screenSize,
+                  widget: widget,
                   child: CircularProgressIndicator(),
                 );
               } else {
@@ -156,82 +162,183 @@ class _CreateAWeekState extends State<CreateAWeek> {
             } catch (e) {
               var screenSize = MediaQuery.of(context).size;
               var orientation = MediaQuery.of(context).orientation;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ViewMasrofna(
-                            myTable: widget.myTable,
-                            tableTitle: widget.title,
-                            appBarTitle: widget.appBarTitle),
-                      ),
-                    );
-                  });
-                },
-                child: Stack(
-                  children: [
-                    Container(
-                      width: orientation == Orientation.portrait
-                          ? screenSize.width * 0.45
-                          : screenSize.width * 0.38,
-                      height: orientation == Orientation.portrait
-                          ? screenSize.height * 0.33
-                          : screenSize.height * 0.60,
-                      margin: EdgeInsets.all(7.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey.withOpacity(0.03),
-                        borderRadius: BorderRadius.circular(14.0),
-                        border: Border.all(
-                          width: 2.0,
-                          color: Colors.grey[200],
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'لا يوجد أي مبلغ',
-                          style: kText,
-                        ),
-
-                        // child: CircularProgressIndicator(),
-                      ),
-                    ),
-                    Positioned(
-                      top: 0,
-                      child: Container(
-                        width: orientation == Orientation.portrait
-                            ? screenSize.width * 0.45
-                            : screenSize.width * 0.38,
-                        height: 42,
-                        margin: EdgeInsets.all(7.0),
-                        child: Center(
-                          child: Text(
-                            '${widget.title}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(14),
-                            topLeft: Radius.circular(14),
-                          ),
-                          gradient: LinearGradient(colors: [
-                            Colors.purpleAccent.shade200,
-                            Colors.blueAccent.shade200,
-                          ]),
-                        ),
-                      ),
-                    ),
-                  ],
+              return WeekView(
+                orientation: orientation,
+                screenSize: screenSize,
+                widget: widget,
+                child: Text(
+                  'لا يوجد أي مبلغ',
+                  style: kText,
                 ),
               );
+              //   return GestureDetector(
+              //     onTap: () {
+              //       setState(() {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (_) => ViewMasrofna(
+              //                 myTable: widget.myTable,
+              //                 tableTitle: widget.title,
+              //                 appBarTitle: widget.appBarTitle),
+              //           ),
+              //         );
+              //       });
+              //     },
+              //     child: Stack(
+              //       children: [
+              //         Container(
+              //           width: orientation == Orientation.portrait
+              //               ? screenSize.width * 0.45
+              //               : screenSize.width * 0.38,
+              //           height: orientation == Orientation.portrait
+              //               ? screenSize.height * 0.33
+              //               : screenSize.height * 0.60,
+              //           margin: EdgeInsets.all(7.0),
+              //           decoration: BoxDecoration(
+              //             color: Colors.blueGrey.withOpacity(0.03),
+              //             borderRadius: BorderRadius.circular(14.0),
+              //             border: Border.all(
+              //               width: 2.0,
+              //               color: Colors.grey[200],
+              //             ),
+              //           ),
+              //           child: Center(
+              //             child: Text(
+              //               'لا يوجد أي مبلغ',
+              //               style: kText,
+              //             ),
+
+              //             // child: CircularProgressIndicator(),
+              //           ),
+              //         ),
+              //         Positioned(
+              //           top: 0,
+              //           child: Container(
+              //             width: orientation == Orientation.portrait
+              //                 ? screenSize.width * 0.45
+              //                 : screenSize.width * 0.38,
+              //             height: 42,
+              //             margin: EdgeInsets.all(7.0),
+              //             child: Center(
+              //               child: Text(
+              //                 '${widget.title}',
+              //                 textAlign: TextAlign.center,
+              //                 style: TextStyle(
+              //                   color: Colors.white,
+              //                   fontWeight: FontWeight.bold,
+              //                 ),
+              //               ),
+              //             ),
+              //             decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.only(
+              //                 topRight: Radius.circular(14),
+              //                 topLeft: Radius.circular(14),
+              //               ),
+              //               gradient: LinearGradient(colors: [
+              //                 Colors.purpleAccent.shade200,
+              //                 Colors.blueAccent.shade200,
+              //               ]),
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   );
             }
           }),
+    );
+  }
+}
+
+class WeekView extends StatefulWidget {
+  const WeekView({
+    @required this.orientation,
+    @required this.screenSize,
+    @required this.widget,
+    @required this.child,
+  });
+
+  final Orientation orientation;
+  final Size screenSize;
+  final CreateAWeek widget;
+  final Widget child;
+
+  @override
+  _WeekViewState createState() => _WeekViewState();
+}
+
+class _WeekViewState extends State<WeekView> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ViewMasrofna(
+                  myTable: widget.widget.myTable,
+                  tableTitle: widget.widget.title,
+                  appBarTitle: widget.widget.appBarTitle),
+            ),
+          );
+        });
+      },
+      child: Stack(
+        children: [
+          Container(
+            width: widget.orientation == Orientation.portrait
+                ? widget.screenSize.width * 0.45
+                : widget.screenSize.width * 0.38,
+            height: widget.orientation == Orientation.portrait
+                ? widget.screenSize.height * 0.33
+                : widget.screenSize.height * 0.60,
+            margin: EdgeInsets.all(7.0),
+            decoration: BoxDecoration(
+              color: Colors.blueGrey.withOpacity(0.03),
+              borderRadius: BorderRadius.circular(14.0),
+              border: Border.all(
+                width: 2.0,
+                color: Colors.grey[200],
+              ),
+            ),
+            child: Center(
+              child: widget.child,
+            ),
+          ),
+          Positioned(
+            top: 0,
+            child: Container(
+              width: widget.orientation == Orientation.portrait
+                  ? widget.screenSize.width * 0.45
+                  : widget.screenSize.width * 0.38,
+              height: 42,
+              margin: EdgeInsets.all(7.0),
+              child: Center(
+                child: Text(
+                  '${widget.widget.title}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(14),
+                  topLeft: Radius.circular(14),
+                ),
+                gradient: LinearGradient(colors: [
+                  Colors.purpleAccent.shade200,
+                  Colors.blueAccent.shade200,
+                ]),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
