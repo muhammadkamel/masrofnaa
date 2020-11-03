@@ -2,7 +2,7 @@
 export 'dart:ui';
 export 'package:provider/provider.dart';
 export 'package:masrofnaa/ui/shared/constraints.dart';
-export 'package:masrofnaa/home_page.dart';
+export 'package:masrofnaa/ui/pages/home_page.dart';
 export 'package:masrofnaa/ui/pages/update_masrof.dart';
 export 'package:flutter_localizations/flutter_localizations.dart';
 

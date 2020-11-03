@@ -36,7 +36,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
 
   @override
   Widget build(BuildContext context) {
-    var helperProvider = context.watch<DBHelper>();
+    var providerH = context.watch<DBHelper>();
     return Scaffold(
       // backgroundColor: Color(0xff1D212B),
       backgroundColor: Colors.white,
@@ -66,7 +66,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: FutureBuilder(
-          future: helperProvider.getAllMasrof(widget.myTable),
+          future: providerH.getAllMasrof(widget.myTable),
           builder: (context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
               return Center(

@@ -94,8 +94,8 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         'noItems': noItems,
         'weekMoney': weekMoney,
       });
-      var helperProvider = context.read<DBHelper>();
-      await helperProvider.createMasrofna(myMasrof, widget.myTable);
+      var providerH = context.read<DBHelper>();
+      await providerH.createMasrofna(myMasrof, widget.myTable);
       Navigator.push(
         context,
         MaterialPageRoute(

@@ -13,8 +13,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _build4Weeks() {
-    var providerTablesList = context.watch<DBHelper>();
-    var providerList = context.watch<Masrofna>();
+    var providerH = context.watch<DBHelper>();
+    var providerM = context.watch<Masrofna>();
     return Align(
       alignment: Alignment.center,
       child: SingleChildScrollView(
@@ -28,14 +28,14 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CreateAWeek(
-                  myTable: providerTablesList.tableTwo,
-                  appBarTitle: providerList.appBarTitle[1],
-                  title: providerList.myList[1],
+                  myTable: providerH.tableTwo,
+                  appBarTitle: providerM.appBarTitle[1],
+                  title: providerM.myList[1],
                 ),
                 CreateAWeek(
-                  myTable: providerTablesList.tableOne,
-                  appBarTitle: providerList.appBarTitle[0],
-                  title: providerList.myList[0],
+                  myTable: providerH.tableOne,
+                  appBarTitle: providerM.appBarTitle[0],
+                  title: providerM.myList[0],
                 ),
               ],
             ),
@@ -44,14 +44,14 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CreateAWeek(
-                  myTable: providerTablesList.tableFour,
-                  appBarTitle: providerList.appBarTitle[3],
-                  title: providerList.myList[3],
+                  myTable: providerH.tableFour,
+                  appBarTitle: providerM.appBarTitle[3],
+                  title: providerM.myList[3],
                 ),
                 CreateAWeek(
-                  myTable: providerTablesList.tableThree,
-                  appBarTitle: providerList.appBarTitle[2],
-                  title: providerList.myList[2],
+                  myTable: providerH.tableThree,
+                  appBarTitle: providerM.appBarTitle[2],
+                  title: providerM.myList[2],
                 ),
               ],
             ),

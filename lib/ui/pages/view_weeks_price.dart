@@ -152,13 +152,13 @@ class _CreateAWeekState extends State<CreateAWeek> {
 
   @override
   Widget build(BuildContext context) {
-    var providerHelper = context.watch<DBHelper>();
+    var providerH = context.watch<DBHelper>();
 
     return Container(
       // color: Colors.red,
       // padding: EdgeInsets.all(7.0),
       child: FutureBuilder(
-          future: providerHelper.getAllMasrof(widget.myTable),
+          future: providerH.getAllMasrof(widget.myTable),
           builder: (context, snapshot) {
             try {
               var screenSize = MediaQuery.of(context).size;
