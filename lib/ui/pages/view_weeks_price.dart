@@ -54,11 +54,24 @@ class _CreateAWeekState extends State<CreateAWeek> {
             margin: EdgeInsets.all(7.0),
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
-              // color: Colors.grey[100],
-
-              color: Colors.lightBlue.withOpacity(0.15),
-
+              gradient: LinearGradient(
+                colors: [
+                  Colors.grey.shade100,
+                  Colors.grey.shade50,
+                  // Colors.blueAccent.shade100,
+                  // Colors.blueAccent.shade100,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
               borderRadius: BorderRadius.circular(14),
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Colors.grey[300],
+              //     offset: Offset.zero,
+              //     blurRadius: 20,
+              //   ),
+              // ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -123,10 +136,12 @@ class _CreateAWeekState extends State<CreateAWeek> {
                   topRight: Radius.circular(14),
                   topLeft: Radius.circular(14),
                 ),
-                gradient: LinearGradient(colors: [
-                  Colors.purpleAccent.shade200,
-                  Colors.blueAccent.shade200,
-                ]),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.indigoAccent,
+                    Colors.blueAccent,
+                  ],
+                ),
               ),
             ),
           ),
@@ -296,7 +311,7 @@ class _WeekViewState extends State<WeekView> {
                 : widget.screenSize.height * 0.60,
             margin: EdgeInsets.all(7.0),
             decoration: BoxDecoration(
-              color: Colors.blueGrey.withOpacity(0.03),
+              color: Colors.blueGrey.withOpacity(0.05),
               borderRadius: BorderRadius.circular(14.0),
               border: Border.all(
                 width: 2.0,

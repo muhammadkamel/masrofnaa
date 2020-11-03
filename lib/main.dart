@@ -34,9 +34,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         const Locale('en', ''), // English, no country code
         const Locale('ar', ''), // Arabic, no country code
-        const Locale.fromSubtags(
-            languageCode: 'zh'), // Chinese *See Advanced Locales below*
-        // ... other locales the app supports
       ],
 
       debugShowCheckedModeBanner: false,

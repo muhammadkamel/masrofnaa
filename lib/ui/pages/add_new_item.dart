@@ -85,14 +85,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
     super.dispose();
   }
 
-  void _showSnackBar(String text) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
-    );
-  }
-
   _submit() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();

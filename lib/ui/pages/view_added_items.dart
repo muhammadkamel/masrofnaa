@@ -72,6 +72,10 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
               return Center(
                 child: CircularProgressIndicator(),
               );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             } else {
               return _buildMyListView(snapshot);
             }
@@ -120,7 +124,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
         // height: 30,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               "حذف المنتج",
@@ -161,7 +165,10 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
   //// Methods
   // ListView
   Widget _buildMyListView(AsyncSnapshot snapshot) {
-    return ListView.builder(
+    var orientation = MediaQuery.of(context).orientation;
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: orientation == Orientation.landscape ? 3 : 2),
       controller: _scrollController,
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.symmetric(vertical: 20),
@@ -174,17 +181,17 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
         var orientation = MediaQuery.of(context).orientation;
         return Container(
           width: orientation == Orientation.portrait
-              ? screenSize.width * 0.95
-              : screenSize.width * 0.95,
+              ? screenSize.width * 0.20
+              : screenSize.width * 0.25,
           // height: 900,
           margin: EdgeInsets.all(7.0),
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          // padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.grey[100],
+            color: index.isEven ? kColors[0] : kColors[1],
             borderRadius: BorderRadius.circular(14),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Icons column
@@ -197,8 +204,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      width: 35,
-                      height: 35,
+                      width: 30,
+                      height: 30,
                       child: ClipOval(
                         child: Material(
                           child: Ink(
@@ -220,8 +227,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     ),
                     Container(
                       alignment: Alignment.center,
-                      width: 35,
-                      height: 35,
+                      width: 30,
+                      height: 30,
                       child: ClipOval(
                         child: Material(
                           child: Ink(
@@ -251,11 +258,11 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
 
               // Text column
               Container(
-                width: screenSize.width * 0.75,
+                // width: screenSize.width * 0.30,
                 // color: Colors.black,
-                padding: EdgeInsets.only(
-                  right: 20,
-                ),
+                // padding: EdgeInsets.only(
+                //   right: 20,
+                // ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -266,9 +273,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                       textAlign: TextAlign.right,
                       textDirection: TextDirection.rtl,
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blueGrey[400],
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blueGrey[500],
                       ),
                     ),
                     SizedBox(
@@ -276,19 +283,19 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     ),
                     // Price
                     Container(
-                      width: screenSize.width * 0.80,
+                      // width: screenSize.width * 0.80,
                       // color: Colors.red,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 3.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          // mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               '${myMasrofs.price}',
                               style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blueGrey[300],
+                                fontSize: 15,
+                                color: Colors.blueGrey[400],
                                 fontFamily: 'Montserrat',
                               ),
                             ),
@@ -298,8 +305,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                               textAlign: TextAlign.right,
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blueGrey[300],
+                                fontSize: 15,
+                                color: Colors.blueGrey[400],
                               ),
                             ),
                           ],
@@ -315,14 +322,14 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     Padding(
                       padding: const EdgeInsets.only(left: 3.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             '${myMasrofs.noItems}',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.blueGrey[300],
+                              fontSize: 15,
+                              color: Colors.blueGrey[400],
                               fontFamily: 'Montserrat',
                             ),
                           ),
@@ -332,8 +339,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             textAlign: TextAlign.right,
                             textDirection: TextDirection.rtl,
                             style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.blueGrey[300],
+                              fontSize: 15,
+                              color: Colors.blueGrey[400],
                             ),
                           ),
                         ],
@@ -348,14 +355,14 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 3.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.end,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               '${(myMasrofs.total)}',
                               style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blueGrey[300],
+                                fontSize: 15,
+                                color: Colors.blueGrey[400],
                                 fontFamily: 'Montserrat',
                               ),
                             ),
@@ -365,8 +372,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                               textAlign: TextAlign.right,
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.blueGrey[300],
+                                fontSize: 15,
+                                color: Colors.blueGrey[400],
                               ),
                             ),
                           ],
@@ -381,14 +388,14 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                     Padding(
                       padding: const EdgeInsets.only(left: 3.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             '$myDate',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.blueGrey[300],
+                              fontSize: 15,
+                              color: Colors.blueGrey[400],
                               fontFamily: 'Montserrat',
                             ),
                           ),
@@ -398,8 +405,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             textAlign: TextAlign.right,
                             textDirection: TextDirection.rtl,
                             style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.blueGrey[300],
+                              fontSize: 15,
+                              color: Colors.blueGrey[400],
                             ),
                           ),
                         ],

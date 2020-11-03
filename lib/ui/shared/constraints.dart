@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 const kLinearColors = LinearGradient(
   colors: [
@@ -7,8 +8,6 @@ const kLinearColors = LinearGradient(
   ],
   begin: Alignment.topRight,
   end: Alignment.bottomLeft,
-  // tileMode: TileMode.repeated,
-  // stops: [5, 0],
 );
 
 const kText = TextStyle(
@@ -21,14 +20,19 @@ const kText = TextStyle(
 const kDeleteIcon = Icon(
   Icons.delete,
   color: Colors.red,
-  size: 18,
+  size: 15,
 );
 
 const kEditIcon = Icon(
   Icons.edit,
   color: Colors.white,
-  size: 18,
+  size: 15,
 );
+
+List<Color> kColors = [
+  Color(0xFFE3F2FD).withOpacity(0.3),
+  Color(0xFFE8F5E9).withOpacity(0.3),
+];
 
 const String kNoPrice = 'لم يتم إضافة أي منتج';
 const String kPriceContent = 'المبلغ الإجمالي';
