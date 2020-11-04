@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
-class HomePage extends StatefulWidget {
+class ViewAllMasrofs extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _ViewAllMasrofsState createState() => _ViewAllMasrofsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
   @override
   void initState() {
     super.initState();
   }
 
-  Widget _build4Weeks() {
-    var providerH = context.watch<DBHelper>();
-    var providerM = context.watch<Masrofna>();
+  Widget _buildAllWeeks() {
     return Align(
       alignment: Alignment.center,
       child: SingleChildScrollView(
@@ -23,38 +21,24 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 7.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CreateAWeek(
-                  myTable: providerH.tableTwo,
-                  appBarTitle: providerM.appBarTitle[1],
-                  title: providerM.myList[1],
-                ),
-                CreateAWeek(
-                  myTable: providerH.tableOne,
-                  appBarTitle: providerM.appBarTitle[0],
-                  title: providerM.myList[0],
-                ),
+                SecondWeek(),
+                FirstWeek(),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CreateAWeek(
-                  myTable: providerH.tableFour,
-                  appBarTitle: providerM.appBarTitle[3],
-                  title: providerM.myList[3],
-                ),
-                CreateAWeek(
-                  myTable: providerH.tableThree,
-                  appBarTitle: providerM.appBarTitle[2],
-                  title: providerM.myList[2],
-                ),
-              ],
+              children: [],
             ),
+            SizedBox(
+              height: 15,
+            ),
+            ExtraAmount(),
           ],
         ),
       ),
@@ -78,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 1.3,
         backgroundColor: Colors.white,
       ),
-      body: _build4Weeks(),
+      body: _buildAllWeeks(),
     );
   }
 }

@@ -3,14 +3,8 @@ import 'package:intl/intl.dart' as initl;
 import 'package:masrofnaa/ui/shared/export.dart';
 
 class ViewMasrofna extends StatefulWidget {
-  ViewMasrofna({
-    @required this.myTable,
-    @required this.tableTitle,
-    @required this.appBarTitle,
-  });
-  final String myTable;
-  final String tableTitle;
-  final String appBarTitle;
+  ViewMasrofna({this.index});
+  final int index;
   @override
   _ViewMasrofnaState createState() => _ViewMasrofnaState();
 }
@@ -18,14 +12,11 @@ class ViewMasrofna extends StatefulWidget {
 class _ViewMasrofnaState extends State<ViewMasrofna> {
   ScrollController _scrollController = ScrollController();
   var myDate = initl.DateFormat().add_Md().format(DateTime.now());
-  // DBList myList;
-  // int index;
+
   @override
   void initState() {
     super.initState();
     _scrollController..addListener(() {});
-    // myList = DBList();
-    // index = myList.getLength;
   }
 
   @override
@@ -37,13 +28,14 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
   @override
   Widget build(BuildContext context) {
     var providerH = context.watch<DBHelper>();
+    var providerM = context.watch<Masrofna>();
     return Scaffold(
       // backgroundColor: Color(0xff1D212B),
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          widget.appBarTitle,
+          '${providerM.headerTitle[widget.index ?? 0]}',
           style: kText,
         ),
         backgroundColor: Colors.white,
@@ -66,7 +58,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: FutureBuilder(
-          future: providerH.getAllMasrof(widget.myTable),
+          future: providerH.getAllMasrof(providerM.tables[widget.index ?? 0]),
           builder: (context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -89,9 +81,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
   // _wantDelete() {
   showAlertDialog(BuildContext context, AsyncSnapshot snapshot, index) {
     Masrofna myMasrofs = Masrofna.fromMyMap(snapshot.data[index]);
-    var helperProvider = context.read<DBHelper>();
-    // String myTable = 'table1';
-    // set up the buttons
+    var providerH = context.read<DBHelper>();
+    var providerM = context.read<Masrofna>();
     Widget cancelButton = FlatButton(
       child: Text("لا"),
       onPressed: () {
@@ -105,9 +96,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       child: Text("نعم"),
       onPressed: () {
         setState(() {
-          helperProvider.deleteMasrof(
+          providerH.deleteMasrof(
             myMasrofs.id,
-            widget.myTable,
+            providerM.tables[widget.index ?? 0],
           );
           Navigator.pop(context);
         });
@@ -175,8 +166,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
         Masrofna myMasrofs = Masrofna.fromMyMap(snapshot.data[index]);
-        // Masrofna myPrice = Masrofna().viewPrice();
-
         var screenSize = MediaQuery.of(context).size;
         var orientation = MediaQuery.of(context).orientation;
         return Container(
@@ -239,9 +228,12 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => UpdateMasrof(
-                                      appBarTitle: widget.appBarTitle,
-                                      tableTitle: widget.tableTitle,
-                                      myTable: widget.myTable,
+                                      headerTitle:
+                                          '${myMasrofs.headerTitle[widget.index ?? 0]}',
+                                      titles:
+                                          '${myMasrofs.titles[widget.index ?? 0]}',
+                                      tables:
+                                          '${myMasrofs.tables[widget.index ?? 0]}',
                                       masrof: myMasrofs,
                                     ),
                                   ),
@@ -431,12 +423,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return AddNewMasrof(
-                  myTable: widget.myTable,
-                  tableTitle: widget.tableTitle,
-                  appBarTitle: widget.appBarTitle,
-                );
-                // return;
+                return AddNewMasrof(index: widget.index);
               },
             ),
           );

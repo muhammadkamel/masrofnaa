@@ -9,18 +9,25 @@ class Masrofna with ChangeNotifier {
   double _total;
   double _weekMoney;
 
-  List<String> myList = [
+  List<String> titles = [
     'الأول',
     'الثاني',
     'الثالث',
     'الرابع',
   ];
 
-  List<String> appBarTitle = [
+  List<String> headerTitle = [
     'الإسبوع الأول',
     'الإسبوع الثاني',
     'الإسبوع الثالث',
     'الإسبوع الربع',
+  ];
+
+  List<String> tables = [
+    'tableOne',
+    'tableTwo',
+    'tableThree',
+    'tableFour',
   ];
 
   // Named Constructor
@@ -42,7 +49,8 @@ class Masrofna with ChangeNotifier {
   double get weekMoney => _weekMoney;
 
   // Methods
-  masronfa(dynamic objec) async {
+  masronfa(Map<String, dynamic> objec) async {
+    notifyListeners();
     _id = await objec['id'];
     _product = await objec['product'];
     _price = await objec['price'];
@@ -53,6 +61,7 @@ class Masrofna with ChangeNotifier {
 
   // Constructor
   Masrofna(dynamic objec) {
+    notifyListeners();
     _id = objec['id'];
     _product = objec['product'];
     _price = objec['price'];
@@ -62,6 +71,7 @@ class Masrofna with ChangeNotifier {
   }
 
   Map<String, dynamic> convertToMap() {
+    notifyListeners();
     return {
       'id': _id,
       'product': _product,

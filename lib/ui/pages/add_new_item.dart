@@ -4,14 +4,8 @@ import 'package:masrofnaa/ui/pages/view_added_items.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
 class AddNewMasrof extends StatefulWidget {
-  AddNewMasrof({
-    @required this.myTable,
-    @required this.tableTitle,
-    @required this.appBarTitle,
-  });
-  final String myTable;
-  final String tableTitle;
-  final String appBarTitle;
+  AddNewMasrof({@required this.index});
+  final int index;
 
   @override
   _AddNewMasrofState createState() => _AddNewMasrofState();
@@ -95,15 +89,12 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         'weekMoney': weekMoney,
       });
       var providerH = context.read<DBHelper>();
-      await providerH.createMasrofna(myMasrof, widget.myTable);
+      var providerM = context.read<Masrofna>();
+      await providerH.createMasrofna(myMasrof, providerM.tables[widget.index]);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ViewMasrofna(
-            myTable: widget.myTable,
-            tableTitle: widget.tableTitle,
-            appBarTitle: widget.appBarTitle,
-          ),
+          builder: (_) => ViewMasrofna(index: widget.index),
         ),
       );
     }
@@ -146,10 +137,10 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                       context,
                       MaterialPageRoute(
                         builder: (_) => ViewMasrofna(
-                          myTable: widget.myTable,
-                          tableTitle: widget.tableTitle,
-                          appBarTitle: widget.appBarTitle,
-                        ),
+                            // myTable: widget.myTable,
+                            // tableTitle: widget.tableTitle,
+                            // appBarTitle: widget.appBarTitle,
+                            ),
                       ),
                     );
                   });
@@ -201,7 +192,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                       onPressed: () async {
                         await _submit();
                         setState(() {});
-                        // Navigator.pop(context);
                       },
                       child: Text(
                         'حفظ',

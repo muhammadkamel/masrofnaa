@@ -3,15 +3,15 @@ import 'package:masrofnaa/ui/shared/export.dart';
 
 class UpdateMasrof extends StatefulWidget {
   UpdateMasrof({
+    @required this.headerTitle,
+    @required this.titles,
+    @required this.tables,
     @required this.masrof,
-    @required this.appBarTitle,
-    @required this.myTable,
-    @required this.tableTitle,
   });
+  final String headerTitle;
+  final String titles;
+  final String tables;
   final Masrofna masrof;
-  final String appBarTitle;
-  final String myTable;
-  final String tableTitle;
   @override
   _UpdateMasrofState createState() => _UpdateMasrofState();
 }
@@ -27,6 +27,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
   void initState() {
     super.initState();
     helper = DBHelper();
+
     _productController.text = widget.masrof.product;
     _productController.addListener(() {
       _productController.value = _productController.value.copyWith(
@@ -64,6 +65,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
 
   @override
   Widget build(BuildContext context) {
+    var providerM = context.watch<Masrofna>();
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -145,21 +147,18 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                   ),
                   onPressed: () async {
                     setState(() {
-                      final updateMyCourses = Masrofna({
+                      final updateMyMasrof = Masrofna({
                         'id': widget.masrof.id,
                         'product': _productController.text,
-                        'price': double.parse(_priceController.text),
-                        'noItems': double.parse(_noItemsController.text),
+                        'price': double.tryParse(_priceController.text),
+                        'noItems': double.tryParse(_noItemsController.text),
                       });
-                      helper.updateMasrof(updateMyCourses, widget.myTable);
+                      helper.updateMasrof(updateMyMasrof, providerM.tables[0]);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => ViewMasrofna(
-                                  appBarTitle: widget.appBarTitle,
-                                  myTable: widget.myTable,
-                                  tableTitle: widget.tableTitle,
-                                )),
+                          builder: (_) => ViewMasrofna(),
+                        ),
                       );
                     });
                   },

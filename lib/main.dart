@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           ),
       // home: HomePage(),
       routes: {
-        '/': (_) => HomePage(),
+        '/': (_) => ViewAllMasrofs(),
       },
     );
   }
