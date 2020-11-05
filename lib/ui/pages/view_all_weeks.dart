@@ -15,34 +15,37 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
   Widget _buildAllWeeks() {
     return Align(
       alignment: Alignment.center,
-      child: SingleChildScrollView(
-        // padding: EdgeInsets.all(7.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 14.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SecondWeek(),
-                FirstWeek(),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FourthWeek(),
-                ThirdWeek(),
-              ],
-            ),
-            // SizedBox(
-            //   height: 14,
-            // ),
-            ExtraAmount(),
-          ],
+      child: Container(
+        color: Colors.white,
+        child: SingleChildScrollView(
+          // padding: EdgeInsets.all(7.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 14.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SecondWeek(),
+                  FirstWeek(),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FourthWeek(),
+                  ThirdWeek(),
+                ],
+              ),
+              ExtraAmount(),
+              SizedBox(
+                height: 14,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -64,6 +67,7 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
         ),
         elevation: 1.3,
         backgroundColor: Colors.white,
+        leading: Text(''),
       ),
       body: _buildAllWeeks(),
     );

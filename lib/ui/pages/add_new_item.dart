@@ -136,11 +136,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => ViewMasrofna(
-                            // myTable: widget.myTable,
-                            // tableTitle: widget.tableTitle,
-                            // appBarTitle: widget.appBarTitle,
-                            ),
+                        builder: (_) => ViewMasrofna(index: widget.index),
                       ),
                     );
                   });
@@ -152,7 +148,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: screenSize.height,
+            height: screenSize.height + 10,
             // color: Colors.red,
             child: Form(
               key: formKey,
@@ -236,13 +232,13 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
           autofocus: true,
           style: TextStyle(
             fontSize: 16,
-            fontFamily: 'GE',
+            fontFamily: 'AJ',
           ),
           decoration: kInputDecoration.copyWith(
             hintText: 'إسم المنتج',
             alignLabelWithHint: true,
             hintStyle: TextStyle(
-              fontFamily: 'GE',
+              fontFamily: 'AJ',
             ),
             errorStyle: TextStyle(),
           ),
@@ -285,7 +281,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
           decoration: kInputDecoration.copyWith(
             hintText: 'السعر',
             hintStyle: TextStyle(
-              fontFamily: 'GE',
+              fontFamily: 'AJ',
             ),
           ),
         ),
@@ -327,7 +323,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
           decoration: kInputDecoration.copyWith(
             hintText: 'العدد',
             hintStyle: TextStyle(
-              fontFamily: 'GE',
+              fontFamily: 'AJ',
             ),
           ),
         ),

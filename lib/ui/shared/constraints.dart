@@ -10,28 +10,31 @@ const kLinearColors = LinearGradient(
   end: Alignment.bottomLeft,
 );
 
-const kActiveColor = LinearGradient(
+LinearGradient kActiveColor = LinearGradient(
   colors: [
-    Color(0xffeeffee),
-    Color(0xffeeeeee),
+    Colors.grey.shade50,
+    // Colors.orange.shade50,
+    Colors.grey.shade50,
   ],
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
+  // begin: Alignment.topCenter,
+  // end: Alignment.bottomCenter,
+);
+LinearGradient kHeaderColor = LinearGradient(
+  colors: [
+    Colors.orange.shade100,
+    Colors.orange.shade100,
+  ],
 );
 const kDeactiveColor = LinearGradient(
   colors: [
     Color(0xfffafafa),
-    Color(0xffe0e0e0),
+    Color(0xfff9f9f9),
   ],
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
-var kHeaderColor = LinearGradient(
-  colors: [
-    Colors.blueAccent.shade100,
-    Colors.purpleAccent.shade200,
-  ],
-);
+
+const kRadiusMedium = Radius.circular(14);
 
 const kText = TextStyle(
   color: Colors.blue,

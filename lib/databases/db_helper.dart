@@ -27,12 +27,14 @@ class DBHelper with ChangeNotifier {
     'tableTwo',
     'tableThree',
     'tableFour',
+    'tableExtra',
   ];
 
   String get tableOne => tables[0];
   String get tableTwo => tables[1];
   String get tableThree => tables[2];
   String get tableFour => tables[3];
+  String get tableExtra => tables[4];
 
   Future<Database> createDatabase(String table) async {
     if (_db != null) {
@@ -67,9 +69,19 @@ class DBHelper with ChangeNotifier {
           $noItems REAL NOT NULL,
           $total REAL,
           $weekMoney REAL)''');
+
       // Table four
       db.execute(
           '''create table $tableFour ($id integer primary key autoincrement,
+          $product varchar(50) NOT NULL,
+          $price REAL NOT NULL,
+          $noItems REAL NOT NULL,
+          $total REAL,
+          $weekMoney REAL)''');
+
+      // Table extra
+      db.execute(
+          '''create table $tableExtra ($id integer primary key autoincrement,
           $product varchar(50) NOT NULL,
           $price REAL NOT NULL,
           $noItems REAL NOT NULL,

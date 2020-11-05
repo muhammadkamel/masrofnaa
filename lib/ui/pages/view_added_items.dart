@@ -35,7 +35,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          '${providerM.headerTitle[widget.index ?? 0]}',
+          '${providerM.headerTitle[widget.index]}',
           style: kText,
         ),
         backgroundColor: Colors.white,
@@ -58,7 +58,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: FutureBuilder(
-          future: providerH.getAllMasrof(providerM.tables[widget.index ?? 0]),
+          future: providerH.getAllMasrof(providerM.tables[widget.index]),
           builder: (context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -98,7 +98,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
         setState(() {
           providerH.deleteMasrof(
             myMasrofs.id,
-            providerM.tables[widget.index ?? 0],
+            providerM.tables[widget.index],
           );
           Navigator.pop(context);
         });
@@ -229,12 +229,13 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                                   MaterialPageRoute(
                                     builder: (context) => UpdateMasrof(
                                       headerTitle:
-                                          '${myMasrofs.headerTitle[widget.index ?? 0]}',
+                                          '${myMasrofs.headerTitle[widget.index]}',
                                       titles:
-                                          '${myMasrofs.titles[widget.index ?? 0]}',
+                                          '${myMasrofs.titles[widget.index]}',
                                       tables:
-                                          '${myMasrofs.tables[widget.index ?? 0]}',
+                                          '${myMasrofs.tables[widget.index]}',
                                       masrof: myMasrofs,
+                                      index: widget.index,
                                     ),
                                   ),
                                 );

@@ -41,6 +41,7 @@ class _FourthWeekState extends State<FourthWeek> {
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               gradient: kActiveColor,
+              // color: Colors.indigo.shade50,
               borderRadius: BorderRadius.circular(14),
             ),
             child: Column(
@@ -96,7 +97,7 @@ class _FourthWeekState extends State<FourthWeek> {
                   '${providerM.titles[3]}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black87,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -107,6 +108,7 @@ class _FourthWeekState extends State<FourthWeek> {
                   topLeft: Radius.circular(14),
                 ),
                 gradient: kHeaderColor,
+                // color: Colors.indigo.shade50,
               ),
             ),
           ),
@@ -156,8 +158,8 @@ class _FourthWeekState extends State<FourthWeek> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                         decoration: BoxDecoration(
-                          color: Colors.redAccent.shade400,
                           gradient: kActiveColor,
+                          // color: Colors.indigo.shade50,
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: Center(
@@ -184,6 +186,7 @@ class _FourthWeekState extends State<FourthWeek> {
                               topLeft: Radius.circular(14),
                             ),
                             gradient: kHeaderColor,
+                            // color: Colors.indigo.shade50,
                           ),
                           margin: EdgeInsets.all(7.0),
                           child: Center(
@@ -191,7 +194,7 @@ class _FourthWeekState extends State<FourthWeek> {
                               '${providerM.titles[3]}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black87,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

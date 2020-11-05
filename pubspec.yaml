@@ -39,9 +39,9 @@ flutter:
   
   fonts:
   # First Font
-    - family: GE
-      fonts:
-        - asset: fonts/GE_SS.otf
+  #   - family: GE
+  #     fonts:
+  #       - asset: fonts/GE_SS.otf
   # Second Font
     - family: Montserrat
       fonts:

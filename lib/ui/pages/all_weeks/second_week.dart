@@ -41,6 +41,7 @@ class _SecondWeekState extends State<SecondWeek> {
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               gradient: kActiveColor,
+              // color: Colors.green.shade50,
               borderRadius: BorderRadius.circular(14),
             ),
             child: Column(
@@ -98,7 +99,7 @@ class _SecondWeekState extends State<SecondWeek> {
                   '${providerM.titles[1]}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black87,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -109,6 +110,7 @@ class _SecondWeekState extends State<SecondWeek> {
                   topLeft: Radius.circular(14),
                 ),
                 gradient: kHeaderColor,
+                // color: Colors.green.shade50,
               ),
             ),
           ),
@@ -159,6 +161,7 @@ class _SecondWeekState extends State<SecondWeek> {
                             EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                         decoration: BoxDecoration(
                           gradient: kActiveColor,
+                          // color: Colors.green.shade50,
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: Center(
@@ -185,7 +188,7 @@ class _SecondWeekState extends State<SecondWeek> {
                               '${providerM.titles[1]}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black87,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -196,6 +199,7 @@ class _SecondWeekState extends State<SecondWeek> {
                               topLeft: Radius.circular(14),
                             ),
                             gradient: kHeaderColor,
+                            // color: Colors.green.shade50,
                           ),
                         ),
                       ),

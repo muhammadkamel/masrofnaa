@@ -14,6 +14,7 @@ class Masrofna with ChangeNotifier {
     'الثاني',
     'الثالث',
     'الرابع',
+    'إضافات',
   ];
 
   List<String> headerTitle = [
@@ -21,6 +22,7 @@ class Masrofna with ChangeNotifier {
     'الإسبوع الثاني',
     'الإسبوع الثالث',
     'الإسبوع الربع',
+    'منتجات إضافية',
   ];
 
   List<String> tables = [
@@ -28,6 +30,7 @@ class Masrofna with ChangeNotifier {
     'tableTwo',
     'tableThree',
     'tableFour',
+    'tableExtra',
   ];
 
   // Named Constructor

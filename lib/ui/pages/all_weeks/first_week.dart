@@ -41,6 +41,7 @@ class _FirstWeekState extends State<FirstWeek> {
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               gradient: kActiveColor,
+              // color: Colors.orange.shade200,
               borderRadius: BorderRadius.circular(14),
             ),
             child: Column(
@@ -50,8 +51,6 @@ class _FirstWeekState extends State<FirstWeek> {
                 // Text column
 
                 Container(
-                  // color: Colors.greenAccent,
-
                   child: Center(
                     child: Text(
                       'إجمالي المبلغ',
@@ -99,17 +98,18 @@ class _FirstWeekState extends State<FirstWeek> {
                   '${providerM.titles[0]}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black87,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(14),
-                  topLeft: Radius.circular(14),
+                  topRight: kRadiusMedium,
+                  topLeft: kRadiusMedium,
                 ),
                 gradient: kHeaderColor,
+                // color: Colors.orange.shade200,
               ),
             ),
           ),
@@ -160,6 +160,7 @@ class _FirstWeekState extends State<FirstWeek> {
                               horizontal: 12, vertical: 10),
                           decoration: BoxDecoration(
                             gradient: kActiveColor,
+                            // color: Colors.orange.shade200,
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: Center(
@@ -186,17 +187,18 @@ class _FirstWeekState extends State<FirstWeek> {
                                 '${providerM.titles[0]}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black87,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(14),
-                                topLeft: Radius.circular(14),
+                                topRight: kRadiusMedium,
+                                topLeft: kRadiusMedium,
                               ),
                               gradient: kHeaderColor,
+                              // color: Colors.orange.shade200,
                             ),
                           ),
                         ),

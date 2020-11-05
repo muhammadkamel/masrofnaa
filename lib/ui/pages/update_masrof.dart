@@ -7,11 +7,13 @@ class UpdateMasrof extends StatefulWidget {
     @required this.titles,
     @required this.tables,
     @required this.masrof,
+    @required this.index,
   });
   final String headerTitle;
   final String titles;
   final String tables;
   final Masrofna masrof;
+  final int index;
   @override
   _UpdateMasrofState createState() => _UpdateMasrofState();
 }
@@ -153,11 +155,13 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                         'price': double.tryParse(_priceController.text),
                         'noItems': double.tryParse(_noItemsController.text),
                       });
-                      helper.updateMasrof(updateMyMasrof, providerM.tables[0]);
+                      helper.updateMasrof(
+                          updateMyMasrof, providerM.tables[widget.index]);
+                      // Navigator.pop(context);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => ViewMasrofna(),
+                          builder: (_) => ViewMasrofna(index: widget.index),
                         ),
                       );
                     });
