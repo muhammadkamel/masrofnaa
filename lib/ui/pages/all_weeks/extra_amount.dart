@@ -11,6 +11,7 @@ class _ExtraAmountState extends State<ExtraAmount> {
   Widget build(BuildContext context) {
     double marginH = 14.0;
     Size screenSize = MediaQuery.of(context).size;
+    var orientation = MediaQuery.of(context).orientation;
     return Align(
       alignment: Alignment.center,
       child: Container(
@@ -18,7 +19,9 @@ class _ExtraAmountState extends State<ExtraAmount> {
         child: Stack(
           children: [
             Container(
-              width: screenSize.width - marginH,
+              width: orientation == Orientation.portrait
+                  ? screenSize.width - marginH
+                  : screenSize.width * 0.80,
               height: 200,
               margin: EdgeInsets.symmetric(horizontal: marginH, vertical: 7.0),
               decoration: BoxDecoration(

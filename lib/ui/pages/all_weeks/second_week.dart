@@ -40,37 +40,24 @@ class _SecondWeekState extends State<SecondWeek> {
             margin: EdgeInsets.all(7.0),
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
-              color: Colors.greenAccent,
-              // gradient: LinearGradient(
-              //   colors: [
-              //     Colors.blue.shade100,
-              //     Colors.blue.shade50,
-              //   ],
-              //   begin: Alignment.topCenter,
-              //   end: Alignment.bottomCenter,
-              // ),
+              gradient: kActiveColor,
               borderRadius: BorderRadius.circular(14),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Colors.grey[300],
-              //     offset: Offset.zero,
-              //     blurRadius: 20,
-              //   ),
-              // ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Text column
-
                 Container(
                   // color: Colors.greenAccent,
 
                   child: Center(
                     child: Text(
                       'إجمالي المبلغ',
-                      style: kText,
+                      style: kText.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -121,12 +108,7 @@ class _SecondWeekState extends State<SecondWeek> {
                   topRight: Radius.circular(14),
                   topLeft: Radius.circular(14),
                 ),
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.indigoAccent,
-                    Colors.blueAccent,
-                  ],
-                ),
+                gradient: kHeaderColor,
               ),
             ),
           ),
@@ -138,7 +120,7 @@ class _SecondWeekState extends State<SecondWeek> {
   @override
   Widget build(BuildContext context) {
     var providerH = context.watch<DBHelper>();
-    var providerM = context.select((Masrofna value) => value.tables[1]);
+    var providerM = context.select((Masrofna masrofna) => masrofna.tables[1]);
 
     return Container(
       // color: Colors.red,
@@ -176,62 +158,18 @@ class _SecondWeekState extends State<SecondWeek> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                         decoration: BoxDecoration(
-                          color: Colors.redAccent.shade400,
-                          // gradient: LinearGradient(
-                          //   colors: [
-                          //     Colors.white,
-                          //     Colors.grey.shade100,
-                          //   ],
-                          //   begin: Alignment.topCenter,
-                          //   end: Alignment.bottomCenter,
-                          // ),
+                          gradient: kActiveColor,
                           borderRadius: BorderRadius.circular(14),
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.grey[300],
-                          //     offset: Offset.zero,
-                          //     blurRadius: 20,
-                          //   ),
-                          // ],
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Text column
-
-                            Container(
-                              // color: Colors.greenAccent,
-
-                              child: Center(
-                                child: Text(
-                                  'لا يوجد أي منتج',
-                                  style: kText,
-                                ),
-                              ),
+                        child: Center(
+                          child: Text(
+                            'لا يوجد أي منتج',
+                            textAlign: TextAlign.center,
+                            style: kText.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
-
-                            SizedBox(
-                              height: 10,
-                            ),
-
-                            // Text column
-
-                            Container(
-                              // color: Colors.greenAccent,
-
-                              child: Center(
-                                child: Text(
-                                  '',
-                                  style: kText.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                       Positioned(
@@ -257,12 +195,7 @@ class _SecondWeekState extends State<SecondWeek> {
                               topRight: Radius.circular(14),
                               topLeft: Radius.circular(14),
                             ),
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.indigoAccent,
-                                Colors.blueAccent,
-                              ],
-                            ),
+                            gradient: kHeaderColor,
                           ),
                         ),
                       ),

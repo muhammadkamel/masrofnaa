@@ -10,11 +10,34 @@ const kLinearColors = LinearGradient(
   end: Alignment.bottomLeft,
 );
 
+const kActiveColor = LinearGradient(
+  colors: [
+    Color(0xffeeffee),
+    Color(0xffeeeeee),
+  ],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+const kDeactiveColor = LinearGradient(
+  colors: [
+    Color(0xfffafafa),
+    Color(0xffe0e0e0),
+  ],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+var kHeaderColor = LinearGradient(
+  colors: [
+    Colors.blueAccent.shade100,
+    Colors.purpleAccent.shade200,
+  ],
+);
+
 const kText = TextStyle(
   color: Colors.blue,
-  fontSize: 18,
+  fontSize: 16,
   height: 1.7,
-  fontFamily: 'GE',
+  fontFamily: 'AJ',
 );
 
 const kDeleteIcon = Icon(

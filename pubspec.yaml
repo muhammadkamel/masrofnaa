@@ -50,3 +50,7 @@ flutter:
     - family: Greta
       fonts:
         - asset: fonts/Greta.ttf
+  # Fourth Font
+    - family: AJ
+      fonts:
+        - asset: fonts/alj.ttf

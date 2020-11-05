@@ -21,7 +21,7 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 7.0),
+            SizedBox(height: 14.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,11 +33,14 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [],
+              children: [
+                FourthWeek(),
+                ThirdWeek(),
+              ],
             ),
-            SizedBox(
-              height: 15,
-            ),
+            // SizedBox(
+            //   height: 14,
+            // ),
             ExtraAmount(),
           ],
         ),
@@ -55,8 +58,8 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
           'مصروفنا',
           style: TextStyle(
             fontSize: 21,
-            color: Colors.black54,
-            // fontWeight: FontWeight
+            color: Colors.black87,
+            fontFamily: 'AJ',
           ),
         ),
         elevation: 1.3,
