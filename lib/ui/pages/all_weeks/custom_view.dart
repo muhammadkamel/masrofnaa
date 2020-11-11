@@ -38,8 +38,10 @@ class _CustomViewState extends State<CustomView> {
             width: orientation == Orientation.portrait
                 ? (widget.index == 4
                     ? screenSize.width * 0.93
-                    : screenSize.width * 0.93)
-                : screenSize.width * 0.38,
+                    : screenSize.width * 0.45)
+                : (widget.index == 4
+                    ? screenSize.width * 0.78
+                    : screenSize.width * 0.38),
             height: orientation == Orientation.portrait
                 ? screenSize.height * 0.33
                 : screenSize.height * 0.60,
@@ -96,8 +98,10 @@ class _CustomViewState extends State<CustomView> {
               width: orientation == Orientation.portrait
                   ? (widget.index == 4
                       ? screenSize.width * 0.93
-                      : screenSize.width * 0.93)
-                  : screenSize.width * 0.38,
+                      : screenSize.width * 0.45)
+                  : (widget.index == 4
+                      ? screenSize.width * 0.78
+                      : screenSize.width * 0.38),
               height: 42,
               margin: EdgeInsets.all(7.0),
               child: Center(

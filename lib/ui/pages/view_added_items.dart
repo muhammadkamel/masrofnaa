@@ -341,7 +341,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                               ),
                             ),
                           )
-                        : null,
+                        : Text(''),
                   ],
                 ),
               ),
