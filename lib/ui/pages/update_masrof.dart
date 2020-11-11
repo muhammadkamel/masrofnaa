@@ -106,9 +106,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
           child: Form(
             child: Column(
               children: [
-                SizedBox(
-                  height: 20,
-                ),
+                kSizedHMedium,
                 TextFormField(
                   controller: _productController,
                   textAlign: TextAlign.right,
@@ -117,9 +115,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                     fontFamily: 'GE',
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                kSizedHMedium,
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: _priceController,
@@ -127,9 +123,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                   textAlign: TextAlign.right,
                   decoration: kInputDecoration,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                kSizedHMedium,
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: _noItemsController,
@@ -138,9 +132,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                   inputFormatters: [],
                   decoration: kInputDecoration,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                kSizedHMedium,
                 FlatButton(
                   color: Colors.blue,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),

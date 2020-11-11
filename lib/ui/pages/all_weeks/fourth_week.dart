@@ -61,9 +61,7 @@ class _FourthWeekState extends State<FourthWeek> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 10,
-                ),
+                kSizedHSmall,
 
                 // Text column
 
@@ -130,7 +128,8 @@ class _FourthWeekState extends State<FourthWeek> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               try {
-                return _buildMyListView(snapshot);
+                Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
+                return CustomView(snapshot: myMasrof, index: 3);
               } catch (e) {
                 var screenSize = MediaQuery.of(context).size;
                 var orientation = MediaQuery.of(context).orientation;

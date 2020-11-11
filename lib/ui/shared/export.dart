@@ -17,3 +17,4 @@ export 'package:masrofnaa/ui/pages/all_weeks/first_week.dart';
 export 'package:masrofnaa/ui/pages/all_weeks/second_week.dart';
 export 'package:masrofnaa/ui/pages/all_weeks/third_week.dart';
 export 'package:masrofnaa/ui/pages/all_weeks/fourth_week.dart';
+export 'package:masrofnaa/ui/pages/all_weeks/custom_view.dart';

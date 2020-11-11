@@ -205,24 +205,21 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  sizedBox20(),
+                  kSizedHMedium,
 
                   // Product
                   _product(),
-                  sizedBox20(),
+                  kSizedHMedium,
 
                   // Price
                   _price(),
-                  sizedBox20(),
+                  kSizedHMedium,
 
                   // No Items
                   _noItems(),
 
                   // Add an image
-                  sizedBox20(),
-                  // TestImage(
-                  //   img: img,
-                  // ),
+                  kSizedHMedium,
                   Row(
                     children: [
                       Padding(
@@ -395,9 +392,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  kSizedHLarge,
                 ],
               ),
             ),
@@ -406,8 +401,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
       ),
     );
   }
-
-  SizedBox sizedBox20() => SizedBox(height: 20);
 
   Widget _product() {
     return Padding(

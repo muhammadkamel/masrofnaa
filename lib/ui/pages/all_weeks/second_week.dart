@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masrofnaa/ui/pages/all_weeks/custom_view.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
 class SecondWeek extends StatefulWidget {
@@ -63,9 +64,7 @@ class _SecondWeekState extends State<SecondWeek> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 10,
-                ),
+                kSizedHSmall,
 
                 // Text column
 
@@ -110,7 +109,6 @@ class _SecondWeekState extends State<SecondWeek> {
                   topLeft: Radius.circular(14),
                 ),
                 gradient: kHeaderColor,
-                // color: Colors.green.shade50,
               ),
             ),
           ),
@@ -123,6 +121,7 @@ class _SecondWeekState extends State<SecondWeek> {
   Widget build(BuildContext context) {
     var providerH = context.watch<DBHelper>();
     var providerM = context.select((Masrofna masrofna) => masrofna.tables[1]);
+    // var providerM = context.watch<Masrofna>();
 
     return Container(
       // color: Colors.red,
@@ -132,7 +131,8 @@ class _SecondWeekState extends State<SecondWeek> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               try {
-                return _buildMyListView(snapshot);
+                Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
+                return CustomView(snapshot: myMasrof, index: 1);
               } catch (e) {
                 var screenSize = MediaQuery.of(context).size;
                 var orientation = MediaQuery.of(context).orientation;

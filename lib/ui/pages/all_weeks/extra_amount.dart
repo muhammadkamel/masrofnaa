@@ -14,10 +14,10 @@ class _ExtraAmountState extends State<ExtraAmount> {
 
   // ListView
   Widget _buildMyListView(AsyncSnapshot snapshot) {
-    // var providerM = context.watch<Masrofna>();
     Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
-    var screenSize = MediaQuery.of(context).size;
     var orientation = MediaQuery.of(context).orientation;
+    var screenSize = MediaQuery.of(context).size;
+    String content = 'إجمالي المبلغ';
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -51,7 +51,7 @@ class _ExtraAmountState extends State<ExtraAmount> {
                 Container(
                   child: Center(
                     child: Text(
-                      'إجمالي المبلغ',
+                      content,
                       style: kText.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -59,10 +59,7 @@ class _ExtraAmountState extends State<ExtraAmount> {
                     ),
                   ),
                 ),
-
-                SizedBox(
-                  height: 10,
-                ),
+                kSizedHSmall,
 
                 // Text column
                 Container(
@@ -112,91 +109,93 @@ class _ExtraAmountState extends State<ExtraAmount> {
     );
   }
 
+  Widget _buildNoPrice() {
+    var screenSize = MediaQuery.of(context).size;
+    var orientation = MediaQuery.of(context).orientation;
+    var providerM = context.read<Masrofna>();
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ViewMasrofna(index: 4),
+              ));
+        });
+      },
+      child: Stack(
+        children: [
+          Container(
+            width: orientation == Orientation.portrait
+                ? screenSize.width * 0.93
+                : screenSize.width * 0.78,
+            height: orientation == Orientation.portrait
+                ? screenSize.height * 0.33
+                : screenSize.height * 0.60,
+            margin: EdgeInsets.all(7.0),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              gradient: kActiveColor,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Center(
+              child: Text(
+                'لا يوجد أي منتج',
+                textAlign: TextAlign.center,
+                style: kText.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            child: Container(
+              width: orientation == Orientation.portrait
+                  ? screenSize.width * 0.93
+                  : screenSize.width * 0.78,
+              height: 42,
+              margin: EdgeInsets.all(7.0),
+              child: Center(
+                child: Text(
+                  '${providerM.titles[4]}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(14),
+                  topLeft: Radius.circular(14),
+                ),
+                gradient: kHeaderColor,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var providerH = context.watch<DBHelper>();
     var providerM = context.select((Masrofna masrofna) => masrofna.tables[4]);
 
     return Container(
-      // color: Colors.red,
-      // padding: EdgeInsets.all(7.0),
       child: FutureBuilder(
           future: providerH.getAllMasrof(providerM),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               try {
-                return _buildMyListView(snapshot);
+                Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
+                return CustomView(snapshot: myMasrof, index: 4);
               } catch (e) {
-                var screenSize = MediaQuery.of(context).size;
-                var orientation = MediaQuery.of(context).orientation;
-                var providerM = context.watch<Masrofna>();
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ViewMasrofna(index: 4),
-                          ));
-                    });
-                  },
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: orientation == Orientation.portrait
-                            ? screenSize.width * 0.93
-                            : screenSize.width * 0.78,
-                        height: orientation == Orientation.portrait
-                            ? screenSize.height * 0.33
-                            : screenSize.height * 0.60,
-                        margin: EdgeInsets.all(7.0),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                        decoration: BoxDecoration(
-                          gradient: kActiveColor,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'لا يوجد أي منتج',
-                            textAlign: TextAlign.center,
-                            style: kText.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        child: Container(
-                          width: orientation == Orientation.portrait
-                              ? screenSize.width * 0.93
-                              : screenSize.width * 0.78,
-                          height: 42,
-                          margin: EdgeInsets.all(7.0),
-                          child: Center(
-                            child: Text(
-                              '${providerM.titles[4]}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(14),
-                              topLeft: Radius.circular(14),
-                            ),
-                            gradient: kHeaderColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return _buildNoPrice();
               }
             } else if (snapshot.hasError) {
               return Text('Error');

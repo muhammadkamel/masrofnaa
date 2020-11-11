@@ -23,7 +23,7 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 14.0),
+              kSizedHMedium,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,9 +41,7 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
                 ],
               ),
               ExtraAmount(),
-              SizedBox(
-                height: 14,
-              ),
+              kSizedHMedium,
             ],
           ),
         ),

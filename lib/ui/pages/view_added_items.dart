@@ -231,9 +231,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 25,
-                    ),
+                    kSizedHMedium,
                     Container(
                       alignment: Alignment.center,
                       width: 30,
@@ -265,7 +263,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    kSizedHMedium,
                     myMasrofs.img != null
                         ? Container(
                             alignment: Alignment.center,
@@ -274,61 +272,65 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             child: ClipOval(
                               child: Material(
                                 child: Ink(
-                                  color: Colors.teal,
+                                  color: Colors.amber,
                                   child: IconButton(
-                                    icon: Icon(
-                                      Icons.image,
-                                      size: 15,
-                                      color: Colors.white,
-                                    ),
+                                    icon: kImageIcon,
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
-                                          return Container(
-                                            width: screenSize.width,
-                                            height: screenSize.height,
-                                            child: Stack(
-                                              children: [
-                                                Positioned(
-                                                  bottom: 20,
-                                                  left: 0,
-                                                  right: 0,
-                                                  child: Align(
-                                                    alignment: Alignment.center,
-                                                    child: Container(
-                                                      child: ClipOval(
-                                                        child: Material(
-                                                          child: Ink(
-                                                            color: Colors
-                                                                .blueAccent,
-                                                            child: IconButton(
-                                                              icon: Icon(Icons
-                                                                  .arrow_back),
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
+                                          return SafeArea(
+                                            child: Scaffold(
+                                              body: Container(
+                                                width: screenSize.width,
+                                                height: screenSize.height,
+                                                child: Stack(
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: InteractiveViewer(
+                                                        child: Image.file(
+                                                          File(myMasrofs.img),
+                                                          fit: BoxFit.cover,
+                                                          width:
+                                                              screenSize.width,
+                                                          height:
+                                                              screenSize.height,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      bottom: 20,
+                                                      left: 0,
+                                                      right: 0,
+                                                      child: Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Container(
+                                                          child: ClipOval(
+                                                            child: Material(
+                                                              child: Ink(
+                                                                color: Colors
+                                                                    .white,
+                                                                child:
+                                                                    IconButton(
+                                                                  icon: Icon(Icons
+                                                                      .arrow_forward),
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                                Container(
-                                                  width: screenSize.width,
-                                                  height: screenSize.height,
-                                                  alignment: Alignment.center,
-                                                  child: InteractiveViewer(
-                                                    child: Image.file(
-                                                      File(myMasrofs.img),
-                                                      fit: BoxFit.cover,
-                                                      // width: 140,
-                                                      // height: 170,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           );
                                         }),
@@ -340,14 +342,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             ),
                           )
                         : null,
-                    // InteractiveViewer(
-                    //   child: Image.file(
-                    //     File(myMasrofs.img),
-                    //     fit: BoxFit.cover,
-                    //     width: 140,
-                    //     height: 170,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -375,9 +369,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         color: Colors.blueGrey[500],
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    kSizedHSmall,
                     // Price
                     Container(
                       // width: screenSize.width * 0.80,
@@ -410,10 +402,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Date
+                    kSizedHSmall,
 
                     // No of Items
                     Padding(
@@ -443,11 +432,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ],
                       ),
                     ),
-
-                    SizedBox(
-                      height: 10,
-                    ),
-
+                    kSizedHSmall,
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 3.0),
@@ -477,9 +462,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    kSizedHSmall,
 
                     // No of Items
                     Padding(

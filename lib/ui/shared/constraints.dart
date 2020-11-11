@@ -43,12 +43,6 @@ const kText = TextStyle(
   fontFamily: 'AJ',
 );
 
-const kDeleteIcon = Icon(
-  Icons.delete,
-  color: Colors.red,
-  size: 15,
-);
-
 const kAddImgIcon = Icon(
   Icons.attach_file,
   color: Colors.blue,
@@ -61,14 +55,30 @@ const kEditIcon = Icon(
   size: 15,
 );
 
+const kDeleteIcon = Icon(
+  Icons.delete,
+  color: Colors.red,
+  size: 15,
+);
+
+const kImageIcon = Icon(
+  Icons.image,
+  size: 15,
+  color: Colors.black,
+);
+
 List<Color> kColors = [
   Color(0xFFE3F2FD).withOpacity(0.3),
   Color(0xFFE8F5E9).withOpacity(0.3),
 ];
 
-const String kNoPrice = 'لم يتم إضافة أي منتج';
-const String kPriceContent = 'المبلغ الإجمالي';
-const String kPriceEG = 'جنية';
+// const String kNoPrice = 'لم يتم إضافة أي منتج';
+// const String kPriceContent = 'المبلغ الإجمالي';
+// const String kPriceEG = 'جنية';
+
+const kSizedHSmall = SizedBox(height: 10);
+const kSizedHMedium = SizedBox(height: 20);
+const kSizedHLarge = SizedBox(height: 30);
 
 final kInputDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
