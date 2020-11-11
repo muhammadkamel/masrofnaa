@@ -207,7 +207,7 @@ class _FirstWeekState extends State<FirstWeek> {
                   );
                 }
               } else if (snapshot.hasError) {
-                return Text('Error');
+                return Text('Nothing to view');
               } else {
                 return Center(
                   child: CircularProgressIndicator(),

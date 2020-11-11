@@ -49,6 +49,12 @@ const kDeleteIcon = Icon(
   size: 15,
 );
 
+const kAddImgIcon = Icon(
+  Icons.attach_file,
+  color: Colors.blue,
+  size: 20,
+);
+
 const kEditIcon = Icon(
   Icons.edit,
   color: Colors.white,

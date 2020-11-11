@@ -35,12 +35,11 @@ class MyApp extends StatelessWidget {
         const Locale('en', ''), // English, no country code
         const Locale('ar', ''), // Arabic, no country code
       ],
-
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           // fontFamily: 'GE',
           ),
-      // home: HomePage(),
+      // home: MyHomePage(),
       routes: {
         '/': (_) => ViewAllMasrofs(),
       },

@@ -21,6 +21,8 @@ class DBHelper with ChangeNotifier {
   String total = 'total';
   // Table price
   String weekMoney = 'weekMoney';
+  // Img
+  String img = 'img';
 
   List<String> tables = [
     'tableOne',
@@ -51,7 +53,8 @@ class DBHelper with ChangeNotifier {
           $price REAL NOT NULL,
           $noItems REAL NOT NULL,
           $total REAL,
-          $weekMoney REAL)''');
+          $weekMoney REAL,
+          $img varchar(500))''');
       // Table two
       db.execute(
           '''create table $tableTwo ($id integer primary key autoincrement,
@@ -59,7 +62,8 @@ class DBHelper with ChangeNotifier {
           $price REAL NOT NULL,
           $noItems REAL NOT NULL,
           $total REAL,
-          $weekMoney REAL)''');
+          $weekMoney REAL,
+          $img varchar(500))''');
 
       // Table three
       db.execute(
@@ -68,7 +72,8 @@ class DBHelper with ChangeNotifier {
           $price REAL NOT NULL,
           $noItems REAL NOT NULL,
           $total REAL,
-          $weekMoney REAL)''');
+          $weekMoney REAL,
+          $img varchar(500))''');
 
       // Table four
       db.execute(
@@ -77,7 +82,8 @@ class DBHelper with ChangeNotifier {
           $price REAL NOT NULL,
           $noItems REAL NOT NULL,
           $total REAL,
-          $weekMoney REAL)''');
+          $weekMoney REAL,
+          $img varchar(500))''');
 
       // Table extra
       db.execute(
@@ -86,7 +92,8 @@ class DBHelper with ChangeNotifier {
           $price REAL NOT NULL,
           $noItems REAL NOT NULL,
           $total REAL,
-          $weekMoney REAL)''');
+          $weekMoney REAL,
+          $img varchar(500))''');
     });
 
     // Provider notifier listener...
@@ -112,6 +119,7 @@ class DBHelper with ChangeNotifier {
     $product,
     $price,
     $noItems,
+    $img,
     ($price * $noItems) $total,
     (SELECT SUM($price * $noItems) from $table) $weekMoney
     from $table''');

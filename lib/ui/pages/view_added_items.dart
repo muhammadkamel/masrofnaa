@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as initl;
 import 'package:masrofnaa/ui/shared/export.dart';
 
 class ViewMasrofna extends StatefulWidget {
-  ViewMasrofna({this.index});
+  ViewMasrofna({this.index, this.imgs});
   final int index;
+  final String imgs;
   @override
   _ViewMasrofnaState createState() => _ViewMasrofnaState();
 }
@@ -12,10 +15,27 @@ class ViewMasrofna extends StatefulWidget {
 class _ViewMasrofnaState extends State<ViewMasrofna> {
   ScrollController _scrollController = ScrollController();
   var myDate = initl.DateFormat().add_Md().format(DateTime.now());
+  String newImg;
+  setData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString('img', widget.imgs);
+    });
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      newImg = prefs.getString('img');
+      setData();
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    getData();
+    setData();
     _scrollController..addListener(() {});
   }
 
@@ -170,10 +190,10 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
         var orientation = MediaQuery.of(context).orientation;
         return Container(
           width: orientation == Orientation.portrait
-              ? screenSize.width * 0.20
+              ? screenSize.width * 0.50
               : screenSize.width * 0.25,
-          // height: 900,
-          margin: EdgeInsets.all(7.0),
+          // height: 390,
+          margin: EdgeInsets.all(5.0),
           // padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
             color: index.isEven ? kColors[0] : kColors[1],
@@ -245,6 +265,89 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    myMasrofs.img != null
+                        ? Container(
+                            alignment: Alignment.center,
+                            width: 30,
+                            height: 30,
+                            child: ClipOval(
+                              child: Material(
+                                child: Ink(
+                                  color: Colors.teal,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.image,
+                                      size: 15,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) {
+                                          return Container(
+                                            width: screenSize.width,
+                                            height: screenSize.height,
+                                            child: Stack(
+                                              children: [
+                                                Positioned(
+                                                  bottom: 20,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: Container(
+                                                      child: ClipOval(
+                                                        child: Material(
+                                                          child: Ink(
+                                                            color: Colors
+                                                                .blueAccent,
+                                                            child: IconButton(
+                                                              icon: Icon(Icons
+                                                                  .arrow_back),
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: screenSize.width,
+                                                  height: screenSize.height,
+                                                  alignment: Alignment.center,
+                                                  child: InteractiveViewer(
+                                                    child: Image.file(
+                                                      File(myMasrofs.img),
+                                                      fit: BoxFit.cover,
+                                                      // width: 140,
+                                                      // height: 170,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : null,
+                    // InteractiveViewer(
+                    //   child: Image.file(
+                    //     File(myMasrofs.img),
+                    //     fit: BoxFit.cover,
+                    //     width: 140,
+                    //     height: 170,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -253,6 +356,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
               Container(
                 // width: screenSize.width * 0.30,
                 // color: Colors.black,
+                // height: 300,
                 // padding: EdgeInsets.only(
                 //   right: 20,
                 // ),
@@ -424,7 +528,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return AddNewMasrof(index: widget.index);
+                return AddNewMasrof(
+                  index: widget.index,
+                );
               },
             ),
           );

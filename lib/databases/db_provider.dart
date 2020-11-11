@@ -8,6 +8,7 @@ class Masrofna with ChangeNotifier {
   double _noItems;
   double _total;
   double _weekMoney;
+  String _img;
 
   List<String> titles = [
     'الأول',
@@ -41,6 +42,7 @@ class Masrofna with ChangeNotifier {
     _noItems = myData['noItems'];
     _total = myData['total'];
     _weekMoney = myData['weekMoney'];
+    _img = myData['img'];
   }
 
   // Getter
@@ -50,6 +52,7 @@ class Masrofna with ChangeNotifier {
   double get noItems => _noItems;
   double get total => _total;
   double get weekMoney => _weekMoney;
+  String get img => _img;
 
   // Methods
   masronfa(Map<String, dynamic> objec) async {
@@ -60,6 +63,7 @@ class Masrofna with ChangeNotifier {
     _noItems = await objec['noItems'];
     _total = await objec['total'];
     _weekMoney = await objec['weekMoney'];
+    _img = await objec['img'];
   }
 
   // Constructor
@@ -71,6 +75,7 @@ class Masrofna with ChangeNotifier {
     _noItems = objec['noItems'];
     _total = objec['total'];
     _weekMoney = objec['weekMoney'];
+    _img = objec['img'];
   }
 
   Map<String, dynamic> convertToMap() {
@@ -82,6 +87,7 @@ class Masrofna with ChangeNotifier {
       'noItems': _noItems,
       'total': _total,
       'weekMoney': _weekMoney,
+      'img': _img,
     };
   }
 

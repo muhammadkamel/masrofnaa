@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:masrofnaa/ui/pages/view_added_items.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
@@ -12,7 +15,7 @@ class AddNewMasrof extends StatefulWidget {
 }
 
 class _AddNewMasrofState extends State<AddNewMasrof> {
-  String product;
+  String product, img;
   double price, noItems, weekMoney;
   DateTime date;
   var focus;
@@ -23,6 +26,48 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
   final formKey = new GlobalKey<FormState>();
   bool isPrice = true;
   bool isNoItems = true;
+
+  // Image
+  final picker = ImagePicker();
+  // File _image;
+  // String imagePath;
+
+  Future getAnImage(ImageSource source) async {
+    final PickedFile pickedFile = await picker.getImage(source: source);
+
+    setState(() {
+      if (pickedFile != null) {
+        // _image = File(pickedFile.path);
+        img = pickedFile.path;
+        setData(pickedFile.path);
+      } else {
+        print('No selected image');
+      }
+    });
+  }
+
+  setData(String myPath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      prefs.setString('key', myPath);
+    });
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      img = prefs.getString('key');
+    });
+  }
+
+  deleteData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      // prefs.remove('key');
+      prefs.clear();
+    });
+  }
 
   @override
   void initState() {
@@ -87,6 +132,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         'price': price,
         'noItems': noItems,
         'weekMoney': weekMoney,
+        'img': img,
       });
       var providerH = context.read<DBHelper>();
       var providerM = context.read<Masrofna>();
@@ -94,7 +140,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ViewMasrofna(index: widget.index),
+          builder: (_) => ViewMasrofna(index: widget.index, imgs: img),
         ),
       );
     }
@@ -136,7 +182,10 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => ViewMasrofna(index: widget.index),
+                        builder: (_) => ViewMasrofna(
+                          index: widget.index,
+                          imgs: img,
+                        ),
                       ),
                     );
                   });
@@ -148,7 +197,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: screenSize.height + 10,
+            // height: screenSize.height + 200,
             // color: Colors.red,
             child: Form(
               key: formKey,
@@ -156,24 +205,171 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
+                  sizedBox20(),
+
                   // Product
                   _product(),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  sizedBox20(),
 
                   // Price
                   _price(),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  sizedBox20(),
 
                   // No Items
                   _noItems(),
-                  SizedBox(height: 20),
+
+                  // Add an image
+                  sizedBox20(),
+                  // TestImage(
+                  //   img: img,
+                  // ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: screenSize.width * 0.55,
+                          height: 225,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              img != null
+                                  ? Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                            child: InteractiveViewer(
+                                              child: Image.file(
+                                                File(img),
+                                                fit: BoxFit.cover,
+                                                width: 140,
+                                                height: 170,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: 30,
+                                          height: 30,
+                                          child: ClipOval(
+                                            child: Material(
+                                              child: Ink(
+                                                color: Colors.white,
+                                                child: IconButton(
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    size: 15,
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      deleteData();
+                                                      getData();
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        'يتم إضافة اسعار\n المنتجات كصورة هنا!',
+                                        style: TextStyle(
+                                          fontFamily: 'AJ',
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 150,
+                        height: 40,
+                        child: FlatButton.icon(
+                          icon: kAddImgIcon,
+                          color: Colors.blue.withOpacity(0.05),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                          splashColor: Colors.blue.withOpacity(0.03),
+                          highlightColor: Colors.blue.shade50,
+                          label: Text(
+                            'إضافة صورة',
+                            style: TextStyle(
+                              fontFamily: 'AJ',
+                              color: Colors.blue,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30),
+                                  ),
+                                ),
+                                context: context,
+                                builder: (context) {
+                                  Size screenSize = MediaQuery.of(context).size;
+                                  return Container(
+                                    // color: Colors.red,
+                                    height: screenSize.height * 0.20,
+                                    width: 100,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        FlatButton.icon(
+                                          icon: Icon(Icons.image),
+                                          label: Text('Gallery'),
+                                          onPressed: () {
+                                            getAnImage(ImageSource.gallery);
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        FlatButton.icon(
+                                          icon: Icon(Icons.camera_alt),
+                                          label: Text('Camera'),
+                                          onPressed: () {
+                                            getAnImage(ImageSource.camera);
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                              // showAlertDialog(context, snapshot, index);
+                            });
+                          },
+                        ),
+                      )
+                    ],
+                  ),
 
                   // Submit
                   Container(
@@ -194,6 +390,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.white,
+                          fontFamily: 'AJ',
                         ),
                       ),
                     ),
@@ -209,6 +406,8 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
       ),
     );
   }
+
+  SizedBox sizedBox20() => SizedBox(height: 20);
 
   Widget _product() {
     return Padding(

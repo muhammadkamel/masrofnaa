@@ -4,6 +4,7 @@ export 'package:provider/provider.dart';
 export 'package:masrofnaa/ui/shared/constraints.dart';
 export 'package:masrofnaa/ui/pages/view_all_weeks.dart';
 export 'package:masrofnaa/ui/pages/update_masrof.dart';
+export 'package:shared_preferences/shared_preferences.dart';
 export 'package:flutter_localizations/flutter_localizations.dart';
 
 // Weeks packages

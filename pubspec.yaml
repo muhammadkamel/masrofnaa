@@ -14,6 +14,9 @@ dependencies:
   sqflite:
   path:
   intl:
+  image_picker:
+  shared_preferences:
+  path_provider:
   flutter_localizations:
     sdk: flutter
   # easy_localization:
