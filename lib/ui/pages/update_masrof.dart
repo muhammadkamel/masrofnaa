@@ -72,6 +72,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
             'تعديل المنتج',
@@ -150,11 +151,13 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                       helper.updateMasrof(
                           updateMyMasrof, providerM.tables[widget.index]);
                       // Navigator.pop(context);
-                      Navigator.pushReplacement(
-                        context,
+                      Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (_) => ViewMasrofna(index: widget.index),
+                          builder: (_) {
+                            return ViewMasrofna(index: widget.index);
+                          },
                         ),
+                        (route) => false,
                       );
                     });
                   },

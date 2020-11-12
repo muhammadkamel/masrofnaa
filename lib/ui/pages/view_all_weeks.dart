@@ -7,6 +7,8 @@ class ViewAllMasrofs extends StatefulWidget {
 }
 
 class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -49,25 +51,62 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
     );
   }
 
+  Future<bool> _onBackPressed() async {
+    return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              // title: Text('Confirm'),
+              content: Text(
+                'هل تريد حقًا الخروج من البرنامج؟',
+                style: TextStyle(),
+                textAlign: TextAlign.right,
+                textDirection: TextDirection.rtl,
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('لا'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false); //Will not exit the App
+                  },
+                ),
+                FlatButton(
+                  child: Text('نعم'),
+                  onPressed: () {
+                    Navigator.of(context).pop(true); //Will exit the App
+                  },
+                )
+              ],
+            );
+          },
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'مصروفنا',
-          style: TextStyle(
-            fontSize: 21,
-            color: Colors.black87,
-            fontFamily: 'AJ',
-          ),
-        ),
-        elevation: 1.3,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
-        leading: Text(''),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Text(
+            'مصروفنا',
+            style: TextStyle(
+              fontSize: 21,
+              color: Colors.black87,
+              fontFamily: 'AJ',
+            ),
+          ),
+          elevation: 1.3,
+          backgroundColor: Colors.white,
+          leading: Text(''),
+        ),
+        body: _buildAllWeeks(),
       ),
-      body: _buildAllWeeks(),
     );
   }
 }

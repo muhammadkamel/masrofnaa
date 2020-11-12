@@ -49,52 +49,59 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
   Widget build(BuildContext context) {
     var providerH = context.watch<DBHelper>();
     var providerM = context.watch<Masrofna>();
-    return Scaffold(
-      // backgroundColor: Color(0xff1D212B),
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          '${providerM.headerTitle[widget.index]}',
-          style: kText,
-        ),
+    return WillPopScope(
+      onWillPop: () {
+        _back();
+        return Future.value(false);
+      },
+      child: Scaffold(
+        // backgroundColor: Color(0xff1D212B),
         backgroundColor: Colors.white,
-        elevation: 3.0,
-        leading: Text(''),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                Navigator.of(context).pushReplacementNamed('/');
-              });
-            },
-            icon: Icon(Icons.arrow_forward),
-            color: Colors.black54,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Text(
+            '${providerM.headerTitle[widget.index]}',
+            style: kText,
           ),
-          // Go to courses
-          // _buildAddingCourseButton(),
-        ],
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: FutureBuilder(
-          future: providerH.getAllMasrof(providerM.tables[widget.index]),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return _buildMyListView(snapshot);
-            }
-          },
+          backgroundColor: Colors.white,
+          elevation: 3.0,
+          leading: Text(''),
+          actions: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context).pushReplacementNamed('/');
+                });
+              },
+              icon: Icon(Icons.arrow_forward),
+              color: Colors.black54,
+            ),
+            // Go to courses
+            // _buildAddingCourseButton(),
+          ],
         ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          child: FutureBuilder(
+            future: providerH.getAllMasrof(providerM.tables[widget.index]),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return _buildMyListView(snapshot);
+              }
+            },
+          ),
+        ),
+        floatingActionButton: _buildMyFloatButton(context),
       ),
-      floatingActionButton: _buildMyFloatButton(context),
     );
   }
 
@@ -243,20 +250,20 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                             child: IconButton(
                               icon: kEditIcon,
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => UpdateMasrof(
-                                      headerTitle:
-                                          '${myMasrofs.headerTitle[widget.index]}',
-                                      titles:
-                                          '${myMasrofs.titles[widget.index]}',
-                                      tables:
-                                          '${myMasrofs.tables[widget.index]}',
-                                      masrof: myMasrofs,
-                                      index: widget.index,
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (_) => UpdateMasrof(
+                                        headerTitle:
+                                            '${myMasrofs.headerTitle[widget.index]}',
+                                        titles:
+                                            '${myMasrofs.titles[widget.index]}',
+                                        tables:
+                                            '${myMasrofs.tables[widget.index]}',
+                                        masrof: myMasrofs,
+                                        index: widget.index,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                    (route) => false);
                               },
                             ),
                           ),
@@ -276,64 +283,12 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                                   child: IconButton(
                                     icon: kImageIcon,
                                     onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) {
-                                          return SafeArea(
-                                            child: Scaffold(
-                                              body: Container(
-                                                width: screenSize.width,
-                                                height: screenSize.height,
-                                                child: Stack(
-                                                  children: [
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: InteractiveViewer(
-                                                        child: Image.file(
-                                                          File(myMasrofs.img),
-                                                          fit: BoxFit.cover,
-                                                          width:
-                                                              screenSize.width,
-                                                          height:
-                                                              screenSize.height,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Positioned(
-                                                      bottom: 20,
-                                                      left: 0,
-                                                      right: 0,
-                                                      child: Align(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Container(
-                                                          child: ClipOval(
-                                                            child: Material(
-                                                              child: Ink(
-                                                                color: Colors
-                                                                    .white,
-                                                                child:
-                                                                    IconButton(
-                                                                  icon: Icon(Icons
-                                                                      .arrow_forward),
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(builder: (_) {
+                                          return _viewImage(
+                                              screenSize, myMasrofs, context);
                                         }),
+                                        (route) => false,
                                       );
                                     },
                                   ),
@@ -502,20 +457,70 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
     );
   }
 
+  Widget _viewImage(Size screenSize, Masrofna myMasrofs, BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          width: screenSize.width,
+          height: screenSize.height,
+          child: Stack(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: InteractiveViewer(
+                  child: Image.file(
+                    File(myMasrofs.img),
+                    fit: BoxFit.cover,
+                    width: screenSize.width,
+                    height: screenSize.height,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    child: ClipOval(
+                      child: Material(
+                        child: Ink(
+                          color: Colors.white,
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   // Floating Action Button
   FloatingActionButton _buildMyFloatButton(BuildContext context) {
     // String myTable = 'table1';
     return FloatingActionButton(
       onPressed: () {
         setState(() {
-          Navigator.of(context).push(
+          Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) {
+              builder: (_) {
                 return AddNewMasrof(
                   index: widget.index,
                 );
               },
             ),
+            (route) => false,
           );
         });
       },
@@ -523,5 +528,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
         Icons.add,
       ),
     );
+  }
+
+  void _back() {
+    Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
   }
 }

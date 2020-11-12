@@ -25,11 +25,11 @@ class _CustomViewState extends State<CustomView> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          Navigator.push(
-              context,
+          Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (_) => ViewMasrofna(index: widget.index),
-              ));
+              ),
+              (route) => false);
         });
       },
       child: Stack(

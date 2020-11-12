@@ -13,101 +13,101 @@ class _ExtraAmountState extends State<ExtraAmount> {
   }
 
   // ListView
-  Widget _buildMyListView(AsyncSnapshot snapshot) {
-    Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
-    var orientation = MediaQuery.of(context).orientation;
-    var screenSize = MediaQuery.of(context).size;
-    String content = 'إجمالي المبلغ';
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ViewMasrofna(index: 4),
-              ));
-        });
-      },
-      child: Stack(
-        children: [
-          Container(
-            width: orientation == Orientation.portrait
-                ? screenSize.width * 0.93
-                : screenSize.width * 0.78,
-            height: orientation == Orientation.portrait
-                ? screenSize.height * 0.33
-                : screenSize.height * 0.60,
-            margin: EdgeInsets.all(7.0),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              gradient: kActiveColor,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Text column
-                Container(
-                  child: Center(
-                    child: Text(
-                      content,
-                      style: kText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-                kSizedHSmall,
+  // Widget _buildMyListView(AsyncSnapshot snapshot) {
+  //   Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
+  //   var orientation = MediaQuery.of(context).orientation;
+  //   var screenSize = MediaQuery.of(context).size;
+  //   String content = 'إجمالي المبلغ';
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         Navigator.of(context).pushAndRemoveUntil(
+  //             MaterialPageRoute(
+  //               builder: (_) => ViewMasrofna(index: 4),
+  //             ),
+  //             (route) => false);
+  //       });
+  //     },
+  //     child: Stack(
+  //       children: [
+  //         Container(
+  //           width: orientation == Orientation.portrait
+  //               ? screenSize.width * 0.93
+  //               : screenSize.width * 0.78,
+  //           height: orientation == Orientation.portrait
+  //               ? screenSize.height * 0.33
+  //               : screenSize.height * 0.60,
+  //           margin: EdgeInsets.all(7.0),
+  //           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+  //           decoration: BoxDecoration(
+  //             gradient: kActiveColor,
+  //             borderRadius: BorderRadius.circular(14),
+  //           ),
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             crossAxisAlignment: CrossAxisAlignment.center,
+  //             children: [
+  //               // Text column
+  //               Container(
+  //                 child: Center(
+  //                   child: Text(
+  //                     content,
+  //                     style: kText.copyWith(
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 18,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               kSizedHSmall,
 
-                // Text column
-                Container(
-                  child: Center(
-                    child: Text(
-                      '${myMasrof.weekMoney}',
-                      style: kText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        fontFamily: 'Montserrat',
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 0,
-            child: Container(
-              width: orientation == Orientation.portrait
-                  ? screenSize.width * 0.93
-                  : screenSize.width * 0.78,
-              height: 42,
-              margin: EdgeInsets.all(7.0),
-              child: Center(
-                child: Text(
-                  '${myMasrof.titles[4]}',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(14),
-                  topLeft: Radius.circular(14),
-                ),
-                gradient: kHeaderColor,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //               // Text column
+  //               Container(
+  //                 child: Center(
+  //                   child: Text(
+  //                     '${myMasrof.weekMoney}',
+  //                     style: kText.copyWith(
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 22,
+  //                       fontFamily: 'Montserrat',
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Positioned(
+  //           top: 0,
+  //           child: Container(
+  //             width: orientation == Orientation.portrait
+  //                 ? screenSize.width * 0.93
+  //                 : screenSize.width * 0.78,
+  //             height: 42,
+  //             margin: EdgeInsets.all(7.0),
+  //             child: Center(
+  //               child: Text(
+  //                 '${myMasrof.titles[4]}',
+  //                 textAlign: TextAlign.center,
+  //                 style: TextStyle(
+  //                   color: Colors.black87,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ),
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.only(
+  //                 topRight: Radius.circular(14),
+  //                 topLeft: Radius.circular(14),
+  //               ),
+  //               gradient: kHeaderColor,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildNoPrice() {
     var screenSize = MediaQuery.of(context).size;
@@ -116,11 +116,11 @@ class _ExtraAmountState extends State<ExtraAmount> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          Navigator.push(
-              context,
+          Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (_) => ViewMasrofna(index: 4),
-              ));
+              ),
+              (route) => false);
         });
       },
       child: Stack(

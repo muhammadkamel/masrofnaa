@@ -162,6 +162,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
             'إضافة مصروف',
@@ -179,15 +180,12 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                 ),
                 onPressed: () {
                   setState(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ViewMasrofna(
-                          index: widget.index,
-                          imgs: img,
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              ViewMasrofna(index: widget.index, imgs: img),
                         ),
-                      ),
-                    );
+                        (route) => false);
                   });
                 },
               ),
