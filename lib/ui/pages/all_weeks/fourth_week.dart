@@ -207,7 +207,9 @@ class _FourthWeekState extends State<FourthWeek> {
             } else if (snapshot.hasError) {
               return Text('Error');
             } else {
-              return Center(
+              return CustomView(
+                index: 3,
+                // snapshot: ,
                 child: CircularProgressIndicator(),
               );
             }

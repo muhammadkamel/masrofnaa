@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
 class CustomView extends StatefulWidget {
-  CustomView({@required this.snapshot, @required this.index});
+  CustomView({this.snapshot, @required this.index, this.child});
   final Masrofna snapshot;
   final int index;
+  final Widget child;
   @override
   _CustomViewState createState() => _CustomViewState();
 }
@@ -52,45 +53,48 @@ class _CustomViewState extends State<CustomView> {
               // color: Colors.green.shade50,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Text column
-                Container(
-                  // color: Colors.greenAccent,
+            child: widget.snapshot != null
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Text column
+                      Container(
+                        // color: Colors.greenAccent,
 
-                  child: Center(
-                    child: Text(
-                      'إجمالي المبلغ',
-                      style: kText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        child: Center(
+                          child: Text(
+                            'إجمالي المبلغ',
+                            style: kText.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
 
-                kSizedHSmall,
+                      kSizedHSmall,
 
-                // Text column
+                      // Text column
 
-                Container(
-                  // color: Colors.greenAccent,
-
-                  child: Center(
-                    child: Text(
-                      '${widget.snapshot.weekMoney}',
-                      style: kText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        fontFamily: 'Montserrat',
+                      Container(
+                        // color: Colors.greenAccent,
+                        child: Center(
+                          child: Text(
+                            '${widget.snapshot.weekMoney}',
+                            style: kText.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
+                  )
+                : Center(
+                    child: widget.child,
                   ),
-                ),
-              ],
-            ),
           ),
           Positioned(
             top: 0,

@@ -210,7 +210,9 @@ class _SecondWeekState extends State<SecondWeek> {
             } else if (snapshot.hasError) {
               return Text('Error');
             } else {
-              return Center(
+              return CustomView(
+                index: 1,
+                // snapshot: ,
                 child: CircularProgressIndicator(),
               );
             }

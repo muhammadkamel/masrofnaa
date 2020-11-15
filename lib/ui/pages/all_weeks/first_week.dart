@@ -121,96 +121,112 @@ class _FirstWeekState extends State<FirstWeek> {
     var providerM = context.select((Masrofna masrofna) => masrofna.tables[0]);
 
     return Container(
-        // color: Colors.red,
-        // padding: EdgeInsets.all(7.0),
-        child: FutureBuilder(
-            future: providerH.getAllMasrof(providerM),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                try {
-                  Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
-                  return CustomView(snapshot: myMasrof, index: 0);
-                } catch (e) {
-                  var screenSize = MediaQuery.of(context).size;
-                  var orientation = MediaQuery.of(context).orientation;
-                  var providerM = context.watch<Masrofna>();
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (_) => ViewMasrofna(index: 0),
-                            ),
-                            (route) => false);
-                      });
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
+      // color: Colors.red,
+      // padding: EdgeInsets.all(7.0),
+      child: FutureBuilder(
+          future: providerH.getAllMasrof(providerM),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              try {
+                Masrofna myMasrof = Masrofna.fromMyMap(snapshot.data[0]);
+                return CustomView(
+                    snapshot: myMasrof,
+                    index: 0,
+                    child: CircularProgressIndicator());
+                // return Center(
+                //   child: CircularProgressIndicator(),
+                // );
+              } catch (e) {
+                var screenSize = MediaQuery.of(context).size;
+                var orientation = MediaQuery.of(context).orientation;
+                var providerM = context.watch<Masrofna>();
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) => ViewMasrofna(index: 0),
+                          ),
+                          (route) => false);
+                    });
+                  },
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: orientation == Orientation.portrait
+                            ? screenSize.width * 0.45
+                            : screenSize.width * 0.38,
+                        height: orientation == Orientation.portrait
+                            ? screenSize.height * 0.33
+                            : screenSize.height * 0.60,
+                        margin: EdgeInsets.all(7.0),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        decoration: BoxDecoration(
+                          gradient: kActiveColor,
+                          // color: Colors.orange.shade200,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Center(
+                          child: providerM != null
+                              ? Text(
+                                  'لا يوجد أي منتج',
+                                  textAlign: TextAlign.center,
+                                  style: kText.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        child: Container(
                           width: orientation == Orientation.portrait
                               ? screenSize.width * 0.45
                               : screenSize.width * 0.38,
-                          height: orientation == Orientation.portrait
-                              ? screenSize.height * 0.33
-                              : screenSize.height * 0.60,
+                          height: 42,
                           margin: EdgeInsets.all(7.0),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 10),
-                          decoration: BoxDecoration(
-                            gradient: kActiveColor,
-                            // color: Colors.orange.shade200,
-                            borderRadius: BorderRadius.circular(14),
-                          ),
                           child: Center(
                             child: Text(
-                              'لا يوجد أي منتج',
+                              '${providerM.titles[0]}',
                               textAlign: TextAlign.center,
-                              style: kText.copyWith(
+                              style: TextStyle(
+                                color: Colors.black87,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          child: Container(
-                            width: orientation == Orientation.portrait
-                                ? screenSize.width * 0.45
-                                : screenSize.width * 0.38,
-                            height: 42,
-                            margin: EdgeInsets.all(7.0),
-                            child: Center(
-                              child: Text(
-                                '${providerM.titles[0]}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: kRadiusMedium,
+                              topLeft: kRadiusMedium,
                             ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: kRadiusMedium,
-                                topLeft: kRadiusMedium,
-                              ),
-                              gradient: kHeaderColor,
-                              // color: Colors.orange.shade200,
-                            ),
+                            gradient: kHeaderColor,
+                            // color: Colors.orange.shade200,
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                }
-              } else if (snapshot.hasError) {
-                return Text('Nothing to view');
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
+                      ),
+                    ],
+                  ),
                 );
               }
-            }));
+            } else if (snapshot.hasError) {
+              return Text('Nothing to view');
+            } else {
+              // return Center(
+              //   child: CircularProgressIndicator(),
+              // );
+              return CustomView(
+                index: 0,
+                // snapshot: ,
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
+    );
   }
 }

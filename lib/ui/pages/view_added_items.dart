@@ -33,16 +33,10 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
       duration: const Duration(seconds: 2),
       vsync: this,
     )
-      ..forward()
+      // ..forward()
       ..addListener(() {
         setState(() {
-          if (_controller.status == AnimationStatus.dismissed) {
-            _controller.forward();
-            isSelected = true;
-          } else if (_controller.status == AnimationStatus.completed) {
-            // _controller.repeat(reverse: );
-            isSelected = false;
-          }
+          // _change();
         });
       });
 
@@ -75,6 +69,14 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     _scrollController.dispose();
     _controller.dispose();
     super.dispose();
+  }
+
+  _change() {
+    if (_controller.status == AnimationStatus.completed) {
+      _controller.reverse();
+    } else if (_controller.status == AnimationStatus.dismissed) {
+      _controller.forward();
+    }
   }
 
   @override
@@ -131,12 +133,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
             },
           ),
         ),
-        floatingActionButton: Transform(
-          transform: Matrix4.identity()
-            ..scale(_animation.value, _animation.value),
-          // scale: _animation,
-          child: _buildMyFloatButton(context),
-        ),
+        floatingActionButton: _buildMyFloatButton(context),
       ),
     );
   }
@@ -152,7 +149,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
         setState(() {
           Navigator.of(context).pop();
         });
-        // helper.delete(myCourse.id);
       },
     );
     Widget continueButton = FlatButton(
@@ -175,10 +171,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
         // color: Colors.redAccent,
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
-        // height: 30,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               "حذف المنتج",
@@ -214,7 +208,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
       },
     );
   }
-  // }
 
   //// Methods
   // ListView
@@ -337,12 +330,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
 
               // Text column
               Container(
-                // width: screenSize.width * 0.30,
-                // color: Colors.black,
-                // height: 300,
-                // padding: EdgeInsets.only(
-                //   right: 20,
-                // ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -541,79 +528,23 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     );
   }
 
-  // Widget _viewImage(Size screenSize, Masrofna myMasrofs, BuildContext context) {
-  //   return Container(
-  //     width: screenSize.width,
-  //     height: screenSize.height,
-  //     child: Stack(
-  //       children: [
-  //         Positioned(
-  //           bottom: 20,
-  //           left: 0,
-  //           right: 0,
-  //           child: Align(
-  //             alignment: Alignment.center,
-  //             child: Container(
-  //               child: ClipOval(
-  //                 child: Material(
-  //                   child: Ink(
-  //                     color: Colors.blueAccent,
-  //                     child: IconButton(
-  //                       icon: Icon(Icons.arrow_back),
-  //                       onPressed: () {
-  //                         Navigator.pop(context);
-  //                         print('Test');
-  //                       },
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Container(
-  //           width: screenSize.width,
-  //           height: screenSize.height,
-  //           alignment: Alignment.center,
-  //           child: InteractiveViewer(
-  //             child: Image.file(
-  //               File(myMasrofs.img),
-  //               fit: BoxFit.cover,
-  //               // width: 140,
-  //               // height: 170,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   // Floating Action Button
   FloatingActionButton _buildMyFloatButton(BuildContext context) {
     // String myTable = 'table1';
     return FloatingActionButton(
-      backgroundColor: isSelected ? Colors.redAccent : Colors.greenAccent,
+      // backgroundColor: isSelected ? Colors.redAccent : Colors.greenAccent,
       onPressed: () {
         setState(() {
-          if (_controller.status == AnimationStatus.dismissed) {
-            _controller.forward();
-            isSelected = true;
-          } else if (_controller.status == AnimationStatus.completed) {
-            _controller.reverse();
-            isSelected = false;
-          }
-          // isSelected = !isSelected;
-          // Navigator.of(context).pushAndRemoveUntil(
-          //   MaterialPageRoute(
-          //     builder: (_) {
-          //       return AddNewMasrof(
-          //         index: widget.index,
-          //       );
-          //     },
-          //   ),
-          //   (route) => false,
-          // );
+          // print('Hi from floating');
+          // _change();
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) {
+              return AddNewMasrof(
+                index: widget.index,
+              );
+            }),
+            (route) => false,
+          );
         });
       },
       child: Icon(
