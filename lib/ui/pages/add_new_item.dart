@@ -161,7 +161,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
       child: WillPopScope(
         onWillPop: () {
           _back();
-          Future.value(false);
+          return Future.value(false);
         },
         child: Scaffold(
           key: scaffoldKey,
@@ -343,21 +343,29 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          FlatButton.icon(
-                                            icon: Icon(Icons.image),
-                                            label: Text('Gallery'),
-                                            onPressed: () {
-                                              getAnImage(ImageSource.gallery);
-                                              Navigator.pop(context);
-                                            },
+                                          Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: FlatButton.icon(
+                                              icon: Icon(Icons.image),
+                                              label: Text('الصور'),
+                                              onPressed: () {
+                                                getAnImage(ImageSource.gallery);
+                                                Navigator.pop(context);
+                                              },
+                                            ),
                                           ),
-                                          FlatButton.icon(
-                                            icon: Icon(Icons.camera_alt),
-                                            label: Text('Camera'),
-                                            onPressed: () {
-                                              getAnImage(ImageSource.camera);
-                                              Navigator.pop(context);
-                                            },
+                                          Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: FlatButton.icon(
+                                              icon: Icon(
+                                                Icons.camera_alt,
+                                              ),
+                                              label: Text('الكاميرا'),
+                                              onPressed: () {
+                                                getAnImage(ImageSource.camera);
+                                                Navigator.pop(context);
+                                              },
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -372,9 +380,10 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                       ],
                     ),
 
+                    kSizedHMedium,
                     // Submit
                     Container(
-                      width: screenSize.width * 0.50,
+                      width: screenSize.width * 0.35,
                       height: 45,
                       margin: EdgeInsets.all(7.0),
                       child: FlatButton(
@@ -528,9 +537,12 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
     );
   }
 
-  void _back() {
+  // Back
+  _back() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => ViewMasrofna(index: widget.index)),
+        MaterialPageRoute(
+          builder: (_) => ViewMasrofna(index: widget.index),
+        ),
         (route) => false);
   }
 }

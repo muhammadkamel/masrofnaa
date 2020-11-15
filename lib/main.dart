@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       localizationsDelegates: [
-        // ... app-specific localization delegate[s] here
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
           ),
       // home: MyHomePage(),
       routes: {
-        '/': (_) => ViewAllMasrofs(),
+        '/': (_) => ViewWeeks(),
       },
     );
   }

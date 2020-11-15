@@ -15,13 +15,10 @@ class ViewMasrofna extends StatefulWidget {
 class _ViewMasrofnaState extends State<ViewMasrofna>
     with TickerProviderStateMixin {
   AnimationController _controller;
-  Animation<double> _animation;
 
   ScrollController _scrollController = ScrollController();
   var myDate = initl.DateFormat().add_Md().format(DateTime.now());
   String newImg;
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isSelected = false;
 
@@ -40,10 +37,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
         });
       });
 
-    _animation = Tween(begin: -0.75, end: -11.0).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
     getData();
     setData();
     _scrollController..addListener(() {});
@@ -69,14 +62,6 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     _scrollController.dispose();
     _controller.dispose();
     super.dispose();
-  }
-
-  _change() {
-    if (_controller.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else if (_controller.status == AnimationStatus.dismissed) {
-      _controller.forward();
-    }
   }
 
   @override

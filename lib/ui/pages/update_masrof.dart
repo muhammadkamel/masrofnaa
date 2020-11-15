@@ -68,6 +68,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
   @override
   Widget build(BuildContext context) {
     var providerM = context.watch<Masrofna>();
+    Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: WillPopScope(
         onWillPop: () {
@@ -100,7 +101,12 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                   ),
                   onPressed: () {
                     setState(() {
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ViewMasrofna(index: widget.index),
+                        ),
+                      );
                     });
                   },
                 ),
@@ -139,39 +145,45 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                     decoration: kInputDecoration,
                   ),
                   kSizedHMedium,
-                  FlatButton(
-                    color: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(1000),
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        final updateMyMasrof = Masrofna({
-                          'id': widget.masrof.id,
-                          'product': _productController.text,
-                          'price': double.tryParse(_priceController.text),
-                          'noItems': double.tryParse(_noItemsController.text),
+                  Container(
+                    width: screenSize.width * 0.35,
+                    height: 45,
+                    margin: EdgeInsets.all(7.0),
+                    child: FlatButton(
+                      color: Colors.blue,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(1000),
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          final updateMyMasrof = Masrofna({
+                            'id': widget.masrof.id,
+                            'product': _productController.text,
+                            'price': double.tryParse(_priceController.text),
+                            'noItems': double.tryParse(_noItemsController.text),
+                          });
+                          helper.updateMasrof(
+                              updateMyMasrof, providerM.tables[widget.index]);
+                          // Navigator.pop(context);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (_) {
+                                return ViewMasrofna(index: widget.index);
+                              },
+                            ),
+                            (route) => false,
+                          );
                         });
-                        helper.updateMasrof(
-                            updateMyMasrof, providerM.tables[widget.index]);
-                        // Navigator.pop(context);
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (_) {
-                              return ViewMasrofna(index: widget.index);
-                            },
-                          ),
-                          (route) => false,
-                        );
-                      });
-                    },
-                    child: Text(
-                      'تعديل',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontFamily: 'GE',
+                      },
+                      child: Text(
+                        'تعديل',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontFamily: 'GE',
+                        ),
                       ),
                     ),
                   ),

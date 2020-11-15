@@ -13,7 +13,6 @@ class CustomView extends StatefulWidget {
 class _CustomViewState extends State<CustomView> {
   @override
   Widget build(BuildContext context) {
-    // AsyncSnapshot snapshot;
     return _buildViewer(context);
   }
 
@@ -50,7 +49,6 @@ class _CustomViewState extends State<CustomView> {
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               gradient: kActiveColor,
-              // color: Colors.green.shade50,
               borderRadius: BorderRadius.circular(14),
             ),
             child: widget.snapshot != null
@@ -108,22 +106,59 @@ class _CustomViewState extends State<CustomView> {
                       : screenSize.width * 0.38),
               height: 42,
               margin: EdgeInsets.all(7.0),
-              child: Center(
-                child: Text(
-                  '$providerM',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(14),
                   topLeft: Radius.circular(14),
                 ),
-                gradient: kHeaderColor,
+                // gradient: kHeaderColor,
+                // color: Colors.greenAccent,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '$providerM',
+                      textAlign: TextAlign.center,
+                      style: kTitleStyle,
+                    ),
+                    Divider(
+                      height: 2.5,
+                    ),
+                    // Container(
+                    //   width: 200,
+                    //   height: 1.7,
+                    //   decoration: BoxDecoration(
+                    //     gradient: kActiveWeek,
+                    //     // color: Colors.purpleAccent,
+                    //     // borderRadius: BorderRadius.circular(7.0),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 25,
+            child: Container(
+              width: orientation == Orientation.portrait
+                  ? (widget.index == 4
+                      ? screenSize.width * 0.93
+                      : screenSize.width * 0.45)
+                  : (widget.index == 4
+                      ? screenSize.width * 0.78
+                      : screenSize.width * 0.38),
+              height: 42,
+              margin: EdgeInsets.all(7.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                // gradient: kHeaderColor,
+                // color: Colors.red,
+              ),
+              child: Image(
+                image: AssetImage('images/dollar.png'),
               ),
             ),
           ),

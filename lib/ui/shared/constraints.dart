@@ -12,18 +12,22 @@ const kLinearColors = LinearGradient(
 
 LinearGradient kActiveColor = LinearGradient(
   colors: [
-    Colors.grey.shade50,
+    Colors.white,
+    Colors.white,
     // Colors.orange.shade50,
-    Colors.grey.shade50,
   ],
   // begin: Alignment.topCenter,
   // end: Alignment.bottomCenter,
 );
 LinearGradient kHeaderColor = LinearGradient(
   colors: [
-    Colors.orange.shade100,
-    Colors.orange.shade100,
+    // Colors.orange.shade100,
+    // Colors.orange.shade100,
+    Colors.white,
+    Colors.white,
   ],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
 );
 const kDeactiveColor = LinearGradient(
   colors: [
@@ -34,12 +38,27 @@ const kDeactiveColor = LinearGradient(
   end: Alignment.bottomCenter,
 );
 
+const kActiveWeek = LinearGradient(
+  colors: [
+    Colors.purpleAccent,
+    Colors.redAccent,
+  ],
+  // begin: Alignment.topCenter,
+  // end: Alignment.bottomCenter,
+);
+
 const kRadiusMedium = Radius.circular(14);
 
 const kText = TextStyle(
   color: Colors.blue,
   fontSize: 16,
   height: 1.7,
+  fontFamily: 'AJ',
+);
+
+const kTitleStyle = TextStyle(
+  color: Colors.black87,
+  fontWeight: FontWeight.bold,
   fontFamily: 'AJ',
 );
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
-class ViewAllMasrofs extends StatefulWidget {
+class ViewWeeks extends StatefulWidget {
   @override
-  _ViewAllMasrofsState createState() => _ViewAllMasrofsState();
+  _ViewWeeksState createState() => _ViewWeeksState();
 }
 
-class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
+class _ViewWeeksState extends State<ViewWeeks> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -14,13 +14,12 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
     super.initState();
   }
 
-  Widget _buildAllWeeks() {
+  Widget _viewAllWeeks() {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        color: Colors.white,
+        color: Color(0xfff6f6f6),
         child: SingleChildScrollView(
-          // padding: EdgeInsets.all(7.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,19 +29,19 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SecondWeek(),
-                  FirstWeek(),
+                  CustomWeek(index: 1),
+                  CustomWeek(index: 0),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  FourthWeek(),
-                  ThirdWeek(),
+                  CustomWeek(index: 3),
+                  CustomWeek(index: 2),
                 ],
               ),
-              ExtraAmount(),
+              CustomWeek(index: 4),
               kSizedHMedium,
             ],
           ),
@@ -105,7 +104,7 @@ class _ViewAllMasrofsState extends State<ViewAllMasrofs> {
           backgroundColor: Colors.white,
           leading: Text(''),
         ),
-        body: _buildAllWeeks(),
+        body: _viewAllWeeks(),
       ),
     );
   }
