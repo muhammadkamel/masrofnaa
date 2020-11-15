@@ -158,240 +158,247 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-        key: scaffoldKey,
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: Text(
-            'إضافة مصروف',
-            style: kText,
-          ),
-          backgroundColor: Colors.white,
-          elevation: 3.0,
-          actions: [
-            Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_forward,
-                  color: Colors.grey[600],
-                ),
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              ViewMasrofna(index: widget.index, imgs: img),
-                        ),
-                        (route) => false);
-                  });
-                },
-              ),
+      child: WillPopScope(
+        onWillPop: () {
+          _back();
+          Future.value(false);
+        },
+        child: Scaffold(
+          key: scaffoldKey,
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            title: Text(
+              'إضافة مصروف',
+              style: kText,
             ),
-          ],
-          // leading:
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            // height: screenSize.height + 200,
-            // color: Colors.red,
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  kSizedHMedium,
-
-                  // Product
-                  _product(),
-                  kSizedHMedium,
-
-                  // Price
-                  _price(),
-                  kSizedHMedium,
-
-                  // No Items
-                  _noItems(),
-
-                  // Add an image
-                  kSizedHMedium,
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: screenSize.width * 0.55,
-                          height: 225,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.blue,
-                            ),
+            backgroundColor: Colors.white,
+            elevation: 3.0,
+            actions: [
+              Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.grey[600],
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                ViewMasrofna(index: widget.index, imgs: img),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              img != null
-                                  ? Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
-                                            child: InteractiveViewer(
-                                              child: Image.file(
-                                                File(img),
-                                                fit: BoxFit.cover,
-                                                width: 140,
-                                                height: 170,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          width: 30,
-                                          height: 30,
-                                          child: ClipOval(
-                                            child: Material(
-                                              child: Ink(
-                                                color: Colors.white,
-                                                child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.delete,
-                                                    size: 15,
-                                                  ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      deleteData();
-                                                      getData();
-                                                    });
-                                                  },
+                          (route) => false);
+                    });
+                  },
+                ),
+              ),
+            ],
+            // leading:
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              // height: screenSize.height + 200,
+              // color: Colors.red,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    kSizedHMedium,
+
+                    // Product
+                    _product(),
+                    kSizedHMedium,
+
+                    // Price
+                    _price(),
+                    kSizedHMedium,
+
+                    // No Items
+                    _noItems(),
+
+                    // Add an image
+                    kSizedHMedium,
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: screenSize.width * 0.55,
+                            height: 225,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                img != null
+                                    ? Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                              child: InteractiveViewer(
+                                                child: Image.file(
+                                                  File(img),
+                                                  fit: BoxFit.cover,
+                                                  width: 140,
+                                                  height: 170,
                                                 ),
                                               ),
                                             ),
                                           ),
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 30,
+                                            height: 30,
+                                            child: ClipOval(
+                                              child: Material(
+                                                child: Ink(
+                                                  color: Colors.white,
+                                                  child: IconButton(
+                                                    icon: Icon(
+                                                      Icons.delete,
+                                                      size: 15,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        deleteData();
+                                                        getData();
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Center(
+                                        child: Text(
+                                          'يتم إضافة اسعار\n المنتجات كصورة هنا!',
+                                          style: TextStyle(
+                                            fontFamily: 'AJ',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          textDirection: TextDirection.rtl,
                                         ),
-                                      ],
-                                    )
-                                  : Center(
-                                      child: Text(
-                                        'يتم إضافة اسعار\n المنتجات كصورة هنا!',
-                                        style: TextStyle(
-                                          fontFamily: 'AJ',
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        textDirection: TextDirection.rtl,
                                       ),
-                                    ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 150,
-                        height: 40,
-                        child: FlatButton.icon(
-                          icon: kAddImgIcon,
-                          color: Colors.blue.withOpacity(0.05),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          splashColor: Colors.blue.withOpacity(0.03),
-                          highlightColor: Colors.blue.shade50,
-                          label: Text(
-                            'إضافة صورة',
-                            style: TextStyle(
-                              fontFamily: 'AJ',
-                              color: Colors.blue,
+                              ],
                             ),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              showModalBottomSheet(
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30),
-                                    topRight: Radius.circular(30),
-                                  ),
-                                ),
-                                context: context,
-                                builder: (context) {
-                                  Size screenSize = MediaQuery.of(context).size;
-                                  return Container(
-                                    // color: Colors.red,
-                                    height: screenSize.height * 0.20,
-                                    width: 100,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        FlatButton.icon(
-                                          icon: Icon(Icons.image),
-                                          label: Text('Gallery'),
-                                          onPressed: () {
-                                            getAnImage(ImageSource.gallery);
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                        FlatButton.icon(
-                                          icon: Icon(Icons.camera_alt),
-                                          label: Text('Camera'),
-                                          onPressed: () {
-                                            getAnImage(ImageSource.camera);
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                              // showAlertDialog(context, snapshot, index);
-                            });
-                          },
                         ),
-                      )
-                    ],
-                  ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 150,
+                          height: 40,
+                          child: FlatButton.icon(
+                            icon: kAddImgIcon,
+                            color: Colors.blue.withOpacity(0.05),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            splashColor: Colors.blue.withOpacity(0.03),
+                            highlightColor: Colors.blue.shade50,
+                            label: Text(
+                              'إضافة صورة',
+                              style: TextStyle(
+                                fontFamily: 'AJ',
+                                color: Colors.blue,
+                              ),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                showModalBottomSheet(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (context) {
+                                    Size screenSize =
+                                        MediaQuery.of(context).size;
+                                    return Container(
+                                      // color: Colors.red,
+                                      height: screenSize.height * 0.20,
+                                      width: 100,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          FlatButton.icon(
+                                            icon: Icon(Icons.image),
+                                            label: Text('Gallery'),
+                                            onPressed: () {
+                                              getAnImage(ImageSource.gallery);
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          FlatButton.icon(
+                                            icon: Icon(Icons.camera_alt),
+                                            label: Text('Camera'),
+                                            onPressed: () {
+                                              getAnImage(ImageSource.camera);
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                                // showAlertDialog(context, snapshot, index);
+                              });
+                            },
+                          ),
+                        )
+                      ],
+                    ),
 
-                  // Submit
-                  Container(
-                    width: screenSize.width * 0.50,
-                    height: 45,
-                    margin: EdgeInsets.all(7.0),
-                    child: FlatButton(
-                      color: Colors.blueAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(1000),
-                      ),
-                      onPressed: () async {
-                        await _submit();
-                        setState(() {});
-                      },
-                      child: Text(
-                        'حفظ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontFamily: 'AJ',
+                    // Submit
+                    Container(
+                      width: screenSize.width * 0.50,
+                      height: 45,
+                      margin: EdgeInsets.all(7.0),
+                      child: FlatButton(
+                        color: Colors.blueAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(1000),
+                        ),
+                        onPressed: () async {
+                          await _submit();
+                          setState(() {});
+                        },
+                        child: Text(
+                          'حفظ',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: 'AJ',
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  kSizedHLarge,
-                ],
+                    kSizedHLarge,
+                  ],
+                ),
               ),
             ),
           ),
@@ -519,5 +526,11 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
         ),
       ),
     );
+  }
+
+  void _back() {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => ViewMasrofna(index: widget.index)),
+        (route) => false);
   }
 }

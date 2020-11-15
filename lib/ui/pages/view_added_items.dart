@@ -12,10 +12,49 @@ class ViewMasrofna extends StatefulWidget {
   _ViewMasrofnaState createState() => _ViewMasrofnaState();
 }
 
-class _ViewMasrofnaState extends State<ViewMasrofna> {
+class _ViewMasrofnaState extends State<ViewMasrofna>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+
   ScrollController _scrollController = ScrollController();
   var myDate = initl.DateFormat().add_Md().format(DateTime.now());
   String newImg;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool isSelected = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )
+      ..forward()
+      ..addListener(() {
+        setState(() {
+          if (_controller.status == AnimationStatus.dismissed) {
+            _controller.forward();
+            isSelected = true;
+          } else if (_controller.status == AnimationStatus.completed) {
+            // _controller.repeat(reverse: );
+            isSelected = false;
+          }
+        });
+      });
+
+    _animation = Tween(begin: -0.75, end: -11.0).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+    getData();
+    setData();
+    _scrollController..addListener(() {});
+  }
+
   setData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -32,16 +71,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    getData();
-    setData();
-    _scrollController..addListener(() {});
-  }
-
-  @override
   void dispose() {
     _scrollController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -71,14 +103,13 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
             IconButton(
               onPressed: () {
                 setState(() {
-                  Navigator.of(context).pushReplacementNamed('/');
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/', (route) => false);
                 });
               },
               icon: Icon(Icons.arrow_forward),
               color: Colors.black54,
             ),
-            // Go to courses
-            // _buildAddingCourseButton(),
           ],
         ),
         body: Container(
@@ -100,7 +131,12 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
             },
           ),
         ),
-        floatingActionButton: _buildMyFloatButton(context),
+        floatingActionButton: Transform(
+          transform: Matrix4.identity()
+            ..scale(_animation.value, _animation.value),
+          // scale: _animation,
+          child: _buildMyFloatButton(context),
+        ),
       ),
     );
   }
@@ -281,17 +317,15 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                                 child: Ink(
                                   color: Colors.amber,
                                   child: IconButton(
-                                    icon: kImageIcon,
-                                    onPressed: () {
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (_) {
-                                          return _viewImage(
-                                              screenSize, myMasrofs, context);
-                                        }),
-                                        (route) => false,
-                                      );
-                                    },
-                                  ),
+                                      icon: kImageIcon,
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                            return _viewReceipt(
+                                                screenSize, context, myMasrofs);
+                                          }),
+                                        );
+                                      }),
                                 ),
                               ),
                             ),
@@ -457,30 +491,32 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
     );
   }
 
-  Widget _viewImage(Size screenSize, Masrofna myMasrofs, BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          width: screenSize.width,
-          height: screenSize.height,
-          child: Stack(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child: InteractiveViewer(
-                  child: Image.file(
-                    File(myMasrofs.img),
-                    fit: BoxFit.cover,
-                    width: screenSize.width,
-                    height: screenSize.height,
-                  ),
+  Container _viewReceipt(
+      Size screenSize, BuildContext context, Masrofna myMasrofs) {
+    return Container(
+      width: screenSize.width,
+      height: screenSize.height,
+      child: SafeArea(
+        child: Scaffold(
+          body: Stack(children: [
+            Container(
+              width: screenSize.width,
+              height: screenSize.height,
+              alignment: Alignment.center,
+              child: InteractiveViewer(
+                child: Image.file(
+                  File(myMasrofs.img),
+                  fit: BoxFit.fill,
+                  width: screenSize.width,
+                  height: screenSize.height,
                 ),
               ),
-              Positioned(
-                bottom: 20,
-                left: 0,
-                right: 0,
-                child: Align(
+            ),
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Align(
                   alignment: Alignment.center,
                   child: Container(
                     child: ClipOval(
@@ -489,6 +525,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                           color: Colors.white,
                           child: IconButton(
                             icon: Icon(Icons.arrow_forward),
+                            color: Colors.black,
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -496,32 +533,87 @@ class _ViewMasrofnaState extends State<ViewMasrofna> {
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+                  )),
+            ),
+          ]),
         ),
       ),
     );
   }
 
+  // Widget _viewImage(Size screenSize, Masrofna myMasrofs, BuildContext context) {
+  //   return Container(
+  //     width: screenSize.width,
+  //     height: screenSize.height,
+  //     child: Stack(
+  //       children: [
+  //         Positioned(
+  //           bottom: 20,
+  //           left: 0,
+  //           right: 0,
+  //           child: Align(
+  //             alignment: Alignment.center,
+  //             child: Container(
+  //               child: ClipOval(
+  //                 child: Material(
+  //                   child: Ink(
+  //                     color: Colors.blueAccent,
+  //                     child: IconButton(
+  //                       icon: Icon(Icons.arrow_back),
+  //                       onPressed: () {
+  //                         Navigator.pop(context);
+  //                         print('Test');
+  //                       },
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: screenSize.width,
+  //           height: screenSize.height,
+  //           alignment: Alignment.center,
+  //           child: InteractiveViewer(
+  //             child: Image.file(
+  //               File(myMasrofs.img),
+  //               fit: BoxFit.cover,
+  //               // width: 140,
+  //               // height: 170,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   // Floating Action Button
   FloatingActionButton _buildMyFloatButton(BuildContext context) {
     // String myTable = 'table1';
     return FloatingActionButton(
+      backgroundColor: isSelected ? Colors.redAccent : Colors.greenAccent,
       onPressed: () {
         setState(() {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (_) {
-                return AddNewMasrof(
-                  index: widget.index,
-                );
-              },
-            ),
-            (route) => false,
-          );
+          if (_controller.status == AnimationStatus.dismissed) {
+            _controller.forward();
+            isSelected = true;
+          } else if (_controller.status == AnimationStatus.completed) {
+            _controller.reverse();
+            isSelected = false;
+          }
+          // isSelected = !isSelected;
+          // Navigator.of(context).pushAndRemoveUntil(
+          //   MaterialPageRoute(
+          //     builder: (_) {
+          //       return AddNewMasrof(
+          //         index: widget.index,
+          //       );
+          //     },
+          //   ),
+          //   (route) => false,
+          // );
         });
       },
       child: Icon(

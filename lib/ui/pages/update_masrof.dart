@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:masrofnaa/ui/shared/export.dart';
 
@@ -69,112 +71,129 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
   Widget build(BuildContext context) {
     var providerM = context.watch<Masrofna>();
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: Text(
-            'تعديل المنتج',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black54,
-              fontFamily: 'GE',
-            ),
-          ),
-          leading: Text(''),
-          backgroundColor: Colors.white,
-          elevation: 3,
-          actions: [
-            Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_forward,
-                  color: Colors.black54,
-                ),
-                onPressed: () {
-                  setState(() {
-                    Navigator.pop(context);
-                  });
-                },
+      child: WillPopScope(
+        onWillPop: () {
+          _back();
+          return Future.value(false);
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            title: Text(
+              'تعديل المنتج',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black54,
+                fontFamily: 'GE',
               ),
             ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-            child: Column(
-              children: [
-                kSizedHMedium,
-                TextFormField(
-                  controller: _productController,
-                  textAlign: TextAlign.right,
-                  decoration: kInputDecoration,
-                  style: TextStyle(
-                    fontFamily: 'GE',
+            leading: Text(''),
+            backgroundColor: Colors.white,
+            elevation: 3,
+            actions: [
+              Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black54,
                   ),
-                ),
-                kSizedHMedium,
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _priceController,
-                  style: TextStyle(fontFamily: 'Montserrat'),
-                  textAlign: TextAlign.right,
-                  decoration: kInputDecoration,
-                ),
-                kSizedHMedium,
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _noItemsController,
-                  style: TextStyle(fontFamily: 'Montserrat'),
-                  textAlign: TextAlign.right,
-                  inputFormatters: [],
-                  decoration: kInputDecoration,
-                ),
-                kSizedHMedium,
-                FlatButton(
-                  color: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(1000),
-                  ),
-                  onPressed: () async {
+                  onPressed: () {
                     setState(() {
-                      final updateMyMasrof = Masrofna({
-                        'id': widget.masrof.id,
-                        'product': _productController.text,
-                        'price': double.tryParse(_priceController.text),
-                        'noItems': double.tryParse(_noItemsController.text),
-                      });
-                      helper.updateMasrof(
-                          updateMyMasrof, providerM.tables[widget.index]);
-                      // Navigator.pop(context);
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (_) {
-                            return ViewMasrofna(index: widget.index);
-                          },
-                        ),
-                        (route) => false,
-                      );
+                      Navigator.pop(context);
                     });
                   },
-                  child: Text(
-                    'تعديل',
+                ),
+              ),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              child: Column(
+                children: [
+                  kSizedHMedium,
+                  TextFormField(
+                    controller: _productController,
+                    textAlign: TextAlign.right,
+                    decoration: kInputDecoration,
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
                       fontFamily: 'GE',
                     ),
                   ),
-                ),
-              ],
+                  kSizedHMedium,
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: _priceController,
+                    style: TextStyle(fontFamily: 'Montserrat'),
+                    textAlign: TextAlign.right,
+                    decoration: kInputDecoration,
+                  ),
+                  kSizedHMedium,
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: _noItemsController,
+                    style: TextStyle(fontFamily: 'Montserrat'),
+                    textAlign: TextAlign.right,
+                    inputFormatters: [],
+                    decoration: kInputDecoration,
+                  ),
+                  kSizedHMedium,
+                  FlatButton(
+                    color: Colors.blue,
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    onPressed: () async {
+                      setState(() {
+                        final updateMyMasrof = Masrofna({
+                          'id': widget.masrof.id,
+                          'product': _productController.text,
+                          'price': double.tryParse(_priceController.text),
+                          'noItems': double.tryParse(_noItemsController.text),
+                        });
+                        helper.updateMasrof(
+                            updateMyMasrof, providerM.tables[widget.index]);
+                        // Navigator.pop(context);
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) {
+                              return ViewMasrofna(index: widget.index);
+                            },
+                          ),
+                          (route) => false,
+                        );
+                      });
+                    },
+                    child: Text(
+                      'تعديل',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontFamily: 'GE',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _back() {
+    // Navigator.of(context).pop(false);
+    setState(() {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (_) => ViewMasrofna(index: widget.index),
+          ),
+          (route) => false);
+    });
   }
 }
