@@ -46,10 +46,12 @@ class _NoMoneyState extends State<NoMoney> {
                 : widget.screenSize.height * 0.60,
             margin: EdgeInsets.all(7.0),
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: kActiveColor,
               // color: Colors.orange.shade200,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.all(
+                Radius.circular(14),
+              ),
             ),
             child: Center(
               child: widget.providerM != null
@@ -78,7 +80,7 @@ class _NoMoneyState extends State<NoMoney> {
                       : widget.screenSize.width * 0.38),
               height: 42,
               margin: EdgeInsets.all(7.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: kRadiusMedium,
                   topLeft: kRadiusMedium,

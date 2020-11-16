@@ -10,7 +10,7 @@ const kLinearColors = LinearGradient(
   end: Alignment.bottomLeft,
 );
 
-LinearGradient kActiveColor = LinearGradient(
+const kActiveColor = LinearGradient(
   colors: [
     Colors.white,
     Colors.white,
@@ -19,7 +19,7 @@ LinearGradient kActiveColor = LinearGradient(
   // begin: Alignment.topCenter,
   // end: Alignment.bottomCenter,
 );
-LinearGradient kHeaderColor = LinearGradient(
+const kHeaderColor = LinearGradient(
   colors: [
     // Colors.orange.shade100,
     // Colors.orange.shade100,

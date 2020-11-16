@@ -47,9 +47,11 @@ class _CustomViewState extends State<CustomView> {
                 : screenSize.height * 0.60,
             margin: EdgeInsets.all(7.0),
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: kActiveColor,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.all(
+                Radius.circular(14),
+              ),
             ),
             child: widget.snapshot != null
                 ? Column(
@@ -106,7 +108,7 @@ class _CustomViewState extends State<CustomView> {
                       : screenSize.width * 0.38),
               height: 42,
               margin: EdgeInsets.all(7.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(14),
                   topLeft: Radius.circular(14),
@@ -129,7 +131,7 @@ class _CustomViewState extends State<CustomView> {
                     // Container(
                     //   width: 200,
                     //   height: 1.7,
-                    //   decoration: BoxDecoration(
+                    //   decoration: const BoxDecoration(
                     //     gradient: kActiveWeek,
                     //     // color: Colors.purpleAccent,
                     //     // borderRadius: BorderRadius.circular(7.0),
@@ -152,8 +154,10 @@ class _CustomViewState extends State<CustomView> {
                       : screenSize.width * 0.38),
               height: 42,
               margin: EdgeInsets.all(7.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(14),
+                ),
                 // gradient: kHeaderColor,
                 // color: Colors.red,
               ),

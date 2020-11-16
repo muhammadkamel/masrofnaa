@@ -29,15 +29,12 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
 
   // Image
   final picker = ImagePicker();
-  // File _image;
-  // String imagePath;
 
   Future getAnImage(ImageSource source) async {
     final PickedFile pickedFile = await picker.getImage(source: source);
 
     setState(() {
       if (pickedFile != null) {
-        // _image = File(pickedFile.path);
         img = pickedFile.path;
         setData(pickedFile.path);
       } else {
@@ -64,7 +61,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
   deleteData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      // prefs.remove('key');
       prefs.clear();
     });
   }
@@ -150,8 +146,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }
-
-    // _showSnackBar("Data saved successfully");
   }
 
   @override
@@ -200,8 +194,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
           ),
           body: SingleChildScrollView(
             child: Container(
-              // height: screenSize.height + 200,
-              // color: Colors.red,
               child: Form(
                 key: formKey,
                 child: Column(
@@ -226,16 +218,24 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Container(
                             width: screenSize.width * 0.55,
                             height: 225,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                width: 2,
-                                color: Colors.blue,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(14),
+                              ),
+                              border: Border.symmetric(
+                                horizontal: BorderSide(
+                                  width: 2.0,
+                                  color: Colors.blue,
+                                ),
+                                vertical: BorderSide(
+                                  width: 2.0,
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
                             child: Row(
@@ -325,8 +325,8 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                                   backgroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(30),
-                                      topRight: Radius.circular(30),
+                                      topLeft: Radius.circular(22),
+                                      topRight: Radius.circular(22),
                                     ),
                                   ),
                                   context: context,
@@ -336,32 +336,44 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                                     return Container(
                                       // color: Colors.red,
                                       height: screenSize.height * 0.20,
-                                      width: 100,
                                       child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.end,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
                                           Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: FlatButton.icon(
-                                              icon: Icon(Icons.image),
-                                              label: Text('الصور'),
-                                              onPressed: () {
+                                            child: ListTile(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(5),
+                                                  topRight: Radius.circular(5),
+                                                ),
+                                              ),
+                                              leading: Icon(Icons.photo),
+                                              title: Text(
+                                                'الصور',
+                                                style:
+                                                    TextStyle(fontFamily: 'AJ'),
+                                              ),
+                                              onTap: () {
                                                 getAnImage(ImageSource.gallery);
                                                 Navigator.pop(context);
                                               },
                                             ),
                                           ),
+                                          kSizedHSmall,
                                           Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: FlatButton.icon(
-                                              icon: Icon(
-                                                Icons.camera_alt,
+                                            child: ListTile(
+                                              leading: Icon(Icons.camera_alt),
+                                              title: Text(
+                                                'الكاميرا',
+                                                style:
+                                                    TextStyle(fontFamily: 'AJ'),
                                               ),
-                                              label: Text('الكاميرا'),
-                                              onPressed: () {
+                                              onTap: () {
                                                 getAnImage(ImageSource.camera);
                                                 Navigator.pop(context);
                                               },
@@ -372,7 +384,6 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                                     );
                                   },
                                 );
-                                // showAlertDialog(context, snapshot, index);
                               });
                             },
                           ),

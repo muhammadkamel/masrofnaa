@@ -218,7 +218,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
           // padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
             color: index.isEven ? kColors[0] : kColors[1],
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.all(
+              Radius.circular(14),
+            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -478,9 +480,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
               child: InteractiveViewer(
                 child: Image.file(
                   File(myMasrofs.img),
-                  fit: BoxFit.fill,
-                  width: screenSize.width,
-                  height: screenSize.height,
+                  fit: BoxFit.cover,
+                  // width: screenSize.width,
+                  // height: screenSize.height,
                 ),
               ),
             ),
@@ -494,7 +496,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
                     child: ClipOval(
                       child: Material(
                         child: Ink(
-                          color: Colors.white,
+                          color: Colors.amber,
                           child: IconButton(
                             icon: Icon(Icons.arrow_forward),
                             color: Colors.black,
