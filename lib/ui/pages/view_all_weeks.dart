@@ -18,7 +18,9 @@ class _ViewWeeksState extends State<ViewWeeks> {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        color: Color(0xfff6f6f6),
+        // color: Colors.red,
+        color: Color(0xfff9f9f9),
+        height: double.infinity,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +102,7 @@ class _ViewWeeksState extends State<ViewWeeks> {
               fontFamily: 'AJ',
             ),
           ),
-          elevation: 1.3,
+          elevation: 0.3,
           backgroundColor: Colors.white,
           leading: Text(''),
         ),

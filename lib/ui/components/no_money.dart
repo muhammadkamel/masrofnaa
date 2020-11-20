@@ -5,13 +5,13 @@ class NoMoney extends StatefulWidget {
   const NoMoney({
     @required this.orientation,
     @required this.screenSize,
-    @required this.providerM,
+    @required this.headerTitle,
     @required this.index,
   });
 
   final Orientation orientation;
   final Size screenSize;
-  final Masrofna providerM;
+  final Masrofna headerTitle;
   final int index;
 
   @override
@@ -36,72 +36,69 @@ class _NoMoneyState extends State<NoMoney> {
           Container(
             width: widget.orientation == Orientation.portrait
                 ? (widget.index == 4
-                    ? widget.screenSize.width * 0.93
-                    : widget.screenSize.width * 0.45)
+                    ? widget.screenSize.width * 0.83
+                    : widget.screenSize.width * 0.40)
                 : (widget.index == 4
-                    ? widget.screenSize.width * 0.78
-                    : widget.screenSize.width * 0.38),
+                    ? widget.screenSize.width * 0.63
+                    : widget.screenSize.width * 0.30),
             height: widget.orientation == Orientation.portrait
-                ? widget.screenSize.height * 0.33
-                : widget.screenSize.height * 0.60,
+                ? widget.screenSize.height * 0.25
+                : widget.screenSize.height * 0.45,
             margin: EdgeInsets.all(7.0),
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: const BoxDecoration(
-              gradient: kActiveColor,
-              // color: Colors.orange.shade200,
-              borderRadius: BorderRadius.all(
-                Radius.circular(14),
-              ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(kRadiusMedium),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xffEBEBEB),
+                  offset: Offset.zero,
+                )
+              ],
             ),
             child: Center(
-              child: widget.providerM != null
-                  ? Text(
-                      'لا يوجد أي منتج',
-                      textAlign: TextAlign.center,
-                      style: kText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    ),
+              child: Text(
+                'لا يوجد أي منتج',
+                textAlign: TextAlign.center,
+                style: kText.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
             ),
           ),
+
+          // Arrow forward
           Positioned(
-            top: 0,
-            child: Container(
-              width: widget.orientation == Orientation.portrait
-                  ? (widget.index == 4
-                      ? widget.screenSize.width * 0.93
-                      : widget.screenSize.width * 0.45)
-                  : (widget.index == 4
-                      ? widget.screenSize.width * 0.78
-                      : widget.screenSize.width * 0.38),
-              height: 42,
-              margin: EdgeInsets.all(7.0),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: kRadiusMedium,
-                  topLeft: kRadiusMedium,
+            bottom: 25,
+            right: 0,
+            left: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
                 ),
-                gradient: kHeaderColor,
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${widget.providerM.titles[widget.index]}',
-                      textAlign: TextAlign.center,
-                      style: kTitleStyle,
-                    ),
-                    Divider(
-                      height: 2.5,
-                    ),
-                  ],
+                child: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: 15,
                 ),
               ),
+            ),
+          ),
+
+          Positioned(
+            top: 20,
+            right: 0,
+            left: 0,
+            child: Text(
+              '${widget.headerTitle.headerTitle[widget.index]}',
+              textAlign: TextAlign.center,
+              style: kTitleStyle,
             ),
           ),
         ],

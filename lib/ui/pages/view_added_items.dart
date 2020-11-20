@@ -22,6 +22,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
 
   bool isSelected = false;
 
+  bool isTrue = false;
+
   @override
   void initState() {
     super.initState();
@@ -84,7 +86,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
             style: kText,
           ),
           backgroundColor: Colors.white,
-          elevation: 3.0,
+          elevation: 0.5,
           leading: Text(''),
           actions: [
             IconButton(
@@ -113,6 +115,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
                   child: CircularProgressIndicator(),
                 );
               } else {
+                // _checkWeekMoney(snapshot);
+
                 return _buildMyListView(snapshot);
               }
             },
@@ -128,6 +132,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     Masrofna myMasrofs = Masrofna.fromMyMap(snapshot.data[index]);
     var providerH = context.read<DBHelper>();
     var providerM = context.read<Masrofna>();
+
     Widget cancelButton = FlatButton(
       child: Text("لا"),
       onPressed: () {
@@ -140,6 +145,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
       child: Text("نعم"),
       onPressed: () {
         setState(() {
+          isTrue = false;
           providerH.deleteMasrof(
             myMasrofs.id,
             providerM.tables[widget.index],
@@ -194,6 +200,30 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     );
   }
 
+// Alert amount limit
+// _wantDelete() {
+  _showLimitAlert(BuildContext context) {
+    // set up the AlertDialog
+    Widget alert = AlertDialog(
+      content: Text(
+        "تم الوصول إلى الحد الأقصى لهذا الإسبوع...",
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          fontFamily: 'AJ',
+        ),
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   //// Methods
   // ListView
   Widget _buildMyListView(AsyncSnapshot snapshot) {
@@ -209,6 +239,17 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
         Masrofna myMasrofs = Masrofna.fromMyMap(snapshot.data[index]);
         var screenSize = MediaQuery.of(context).size;
         var orientation = MediaQuery.of(context).orientation;
+        if (myMasrofs.weekMoney >= 500) {
+          // setState(() {
+          isTrue = true;
+          // });
+        } else if (myMasrofs.weekMoney < 500) {
+          // setState(() {
+          isTrue = false;
+          // });
+        }
+        // setState(() {
+        // });
         return Container(
           width: orientation == Orientation.portrait
               ? screenSize.width * 0.50
@@ -465,7 +506,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     );
   }
 
-  Container _viewReceipt(
+  Widget _viewReceipt(
       Size screenSize, BuildContext context, Masrofna myMasrofs) {
     return Container(
       width: screenSize.width,
@@ -516,14 +557,16 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
   }
 
   // Floating Action Button
-  FloatingActionButton _buildMyFloatButton(BuildContext context) {
-    // String myTable = 'table1';
+  Widget _buildMyFloatButton(BuildContext context) {
     return FloatingActionButton(
       // backgroundColor: isSelected ? Colors.redAccent : Colors.greenAccent,
       onPressed: () {
-        setState(() {
-          // print('Hi from floating');
-          // _change();
+        // setState(() {
+        // isTrue = true;
+        if (isTrue) {
+          print('I am $isTrue');
+          _showLimitAlert(context);
+        } else {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (_) {
               return AddNewMasrof(
@@ -532,7 +575,8 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
             }),
             (route) => false,
           );
-        });
+        }
+        // });
       },
       child: Icon(
         Icons.add,
@@ -543,4 +587,13 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
   void _back() {
     Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
   }
+
+  // _checkWeekMoney(AsyncSnapshot shot) {
+  //   Masrofna myMasrofs = Masrofna.fromMyMap(shot.data[0]);
+
+  //   int dor = 3;
+  //   if (myMasrofs.weekMoney == 500) {
+  //     print('I have 500 EGP');
+  //   }
+  // }
 }

@@ -40,7 +40,7 @@ class _CustomWeekState extends State<CustomWeek> {
                 return NoMoney(
                     orientation: orientation,
                     screenSize: screenSize,
-                    providerM: providerM,
+                    headerTitle: providerM,
                     index: widget.index);
               }
             } else if (snapshot.hasError) {

@@ -17,9 +17,8 @@ class _CustomViewState extends State<CustomView> {
   }
 
   Widget _buildViewer(BuildContext context) {
-    // var providerM = context.read<Masrofna>();
-    var providerM =
-        context.select((Masrofna value) => value.titles[widget.index]);
+    var headerTitle =
+        context.select((Masrofna value) => value.headerTitle[widget.index]);
     var screenSize = MediaQuery.of(context).size;
     var orientation = MediaQuery.of(context).orientation;
     return GestureDetector(
@@ -37,21 +36,25 @@ class _CustomViewState extends State<CustomView> {
           Container(
             width: orientation == Orientation.portrait
                 ? (widget.index == 4
-                    ? screenSize.width * 0.93
-                    : screenSize.width * 0.45)
+                    ? screenSize.width * 0.83
+                    : screenSize.width * 0.40)
                 : (widget.index == 4
                     ? screenSize.width * 0.78
-                    : screenSize.width * 0.38),
+                    : screenSize.width * 0.30),
             height: orientation == Orientation.portrait
-                ? screenSize.height * 0.33
-                : screenSize.height * 0.60,
+                ? screenSize.height * 0.25
+                : screenSize.height * 0.45,
             margin: EdgeInsets.all(7.0),
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: const BoxDecoration(
-              gradient: kActiveColor,
-              borderRadius: BorderRadius.all(
-                Radius.circular(14),
-              ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(kRadiusMedium),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xffEBEBEB),
+                  offset: Offset.zero,
+                )
+              ],
             ),
             child: widget.snapshot != null
                 ? Column(
@@ -65,9 +68,11 @@ class _CustomViewState extends State<CustomView> {
                         child: Center(
                           child: Text(
                             'إجمالي المبلغ',
-                            style: kText.copyWith(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
+                              color: Color(0xff707070),
+                              fontFamily: 'AJ',
                             ),
                           ),
                         ),
@@ -82,9 +87,10 @@ class _CustomViewState extends State<CustomView> {
                         child: Center(
                           child: Text(
                             '${widget.snapshot.weekMoney}',
-                            style: kText.copyWith(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 22,
+                              fontSize: 23,
+                              color: Color(0xff707070),
                               fontFamily: 'Montserrat',
                             ),
                           ),
@@ -97,72 +103,34 @@ class _CustomViewState extends State<CustomView> {
                   ),
           ),
           Positioned(
-            top: 0,
-            child: Container(
-              width: orientation == Orientation.portrait
-                  ? (widget.index == 4
-                      ? screenSize.width * 0.93
-                      : screenSize.width * 0.45)
-                  : (widget.index == 4
-                      ? screenSize.width * 0.78
-                      : screenSize.width * 0.38),
-              height: 42,
-              margin: EdgeInsets.all(7.0),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(14),
-                  topLeft: Radius.circular(14),
-                ),
-                // gradient: kHeaderColor,
-                // color: Colors.greenAccent,
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '$providerM',
-                      textAlign: TextAlign.center,
-                      style: kTitleStyle,
-                    ),
-                    Divider(
-                      height: 2.5,
-                    ),
-                    // Container(
-                    //   width: 200,
-                    //   height: 1.7,
-                    //   decoration: const BoxDecoration(
-                    //     gradient: kActiveWeek,
-                    //     // color: Colors.purpleAccent,
-                    //     // borderRadius: BorderRadius.circular(7.0),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
+            top: 20,
+            right: 0,
+            left: 0,
+            child: Text(
+              '$headerTitle',
+              textAlign: TextAlign.center,
+              style: kTitleStyle,
             ),
           ),
+          // Arrow forward
           Positioned(
             bottom: 25,
-            child: Container(
-              width: orientation == Orientation.portrait
-                  ? (widget.index == 4
-                      ? screenSize.width * 0.93
-                      : screenSize.width * 0.45)
-                  : (widget.index == 4
-                      ? screenSize.width * 0.78
-                      : screenSize.width * 0.38),
-              height: 42,
-              margin: EdgeInsets.all(7.0),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(14),
+            right: 0,
+            left: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
                 ),
-                // gradient: kHeaderColor,
-                // color: Colors.red,
-              ),
-              child: Image(
-                image: AssetImage('images/dollar.png'),
+                child: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: 15,
+                ),
               ),
             ),
           ),

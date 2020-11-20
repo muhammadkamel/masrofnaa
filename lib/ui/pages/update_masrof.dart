@@ -85,12 +85,12 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black54,
-                fontFamily: 'GE',
+                fontFamily: 'AJ',
               ),
             ),
             leading: Text(''),
             backgroundColor: Colors.white,
-            elevation: 3,
+            elevation: 0.5,
             actions: [
               Align(
                 alignment: Alignment.center,
@@ -124,7 +124,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                     textAlign: TextAlign.right,
                     decoration: kInputDecoration,
                     style: TextStyle(
-                      fontFamily: 'GE',
+                      fontFamily: 'AJ',
                     ),
                   ),
                   kSizedHMedium,
@@ -182,7 +182,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
-                          fontFamily: 'GE',
+                          fontFamily: 'AJ',
                         ),
                       ),
                     ),

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // fontFamily: 'GE',
           ),
-      // home: MyHomePage(),
+      // home: MyHomei(),
       routes: {
         '/': (_) => ViewWeeks(),
       },

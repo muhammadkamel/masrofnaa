@@ -168,7 +168,7 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
               style: kText,
             ),
             backgroundColor: Colors.white,
-            elevation: 3.0,
+            elevation: 0.5,
             actions: [
               Align(
                 alignment: Alignment.center,
@@ -331,26 +331,21 @@ class _AddNewMasrofState extends State<AddNewMasrof> {
                                   ),
                                   context: context,
                                   builder: (context) {
-                                    Size screenSize =
-                                        MediaQuery.of(context).size;
+                                    // Size screenSize =
+                                    //     MediaQuery.of(context).size;
                                     return Container(
                                       // color: Colors.red,
-                                      height: screenSize.height * 0.20,
+                                      // height: screenSize.height * 0.20,
+                                      height: 200,
                                       child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
                                           Directionality(
                                             textDirection: TextDirection.rtl,
                                             child: ListTile(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(5),
-                                                  topRight: Radius.circular(5),
-                                                ),
-                                              ),
                                               leading: Icon(Icons.photo),
                                               title: Text(
                                                 'الصور',
