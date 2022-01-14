@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:masrofnaa/ui/shared/export.dart';
+
+import '../ui/shared/export.dart';
 
 class DBHelper with ChangeNotifier {
-  DBHelper.internal();
-  static final DBHelper _instance = DBHelper.internal();
-  factory DBHelper() => _instance;
+  DBHelper._internal();
 
-  Database _db;
+  static DBHelper? _instance;
+
+  factory DBHelper() => _instance ?? DBHelper._internal();
+
+  late Database _db;
   // ID
   String id = 'id';
   // product
@@ -39,9 +42,6 @@ class DBHelper with ChangeNotifier {
   String get tableExtra => tables[4];
 
   Future<Database> createDatabase(String table) async {
-    if (_db != null) {
-      return _db;
-    }
     //define the path to the database
     String path = join(await getDatabasesPath(), 'demoDatabase.db');
     // print('I am DB and my location: $path');
@@ -102,7 +102,7 @@ class DBHelper with ChangeNotifier {
   }
 
   // Create a table
-  Future<int> createMasrofna(Masrofna myMasrof, String table) async {
+  Future<int?> createMasrofna(Masrofna myMasrof, String table) async {
     Database db = await createDatabase(table);
     try {
       var result = await db.insert(table, myMasrof.convertToMap());
@@ -156,5 +156,6 @@ class DBHelper with ChangeNotifier {
         where: 'id = ?', whereArgs: [myMasrof.id]);
   }
 
+  @override
   notifyListeners();
 }

@@ -2,23 +2,30 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as initl;
-import 'package:masrofnaa/ui/shared/export.dart';
+import 'package:provider/provider.dart';
+
+import '../shared/export.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewMasrofna extends StatefulWidget {
-  ViewMasrofna({this.index, this.imgs});
+  const ViewMasrofna({
+    Key? key,
+    required this.index,
+    this.imgs,
+  }) : super(key: key);
   final int index;
-  final String imgs;
+  final String? imgs;
   @override
   _ViewMasrofnaState createState() => _ViewMasrofnaState();
 }
 
 class _ViewMasrofnaState extends State<ViewMasrofna>
     with TickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   var myDate = initl.DateFormat().add_Md().format(DateTime.now());
-  String newImg;
+  String? newImg;
 
   bool isSelected = false;
 
@@ -41,13 +48,13 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
 
     getData();
     setData();
-    _scrollController..addListener(() {});
+    _scrollController.addListener(() {});
   }
 
   setData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      prefs.setString('img', widget.imgs);
+      prefs.setString('img', widget.imgs!);
     });
   }
 
@@ -82,12 +89,12 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
-            '${providerM.headerTitle[widget.index]}',
+            providerM.headerTitle[widget.index],
             style: kText,
           ),
           backgroundColor: Colors.white,
           elevation: 0.5,
-          leading: Text(''),
+          leading: const Text(''),
           actions: [
             IconButton(
               onPressed: () {
@@ -96,22 +103,22 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
                       .pushNamedAndRemoveUntil('/', (route) => false);
                 });
               },
-              icon: Icon(Icons.arrow_forward),
+              icon: const Icon(Icons.arrow_forward),
               color: Colors.black54,
             ),
           ],
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: FutureBuilder(
             future: providerH.getAllMasrof(providerM.tables[widget.index]),
             builder: (context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasError) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else {
@@ -133,21 +140,21 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
     var providerH = context.read<DBHelper>();
     var providerM = context.read<Masrofna>();
 
-    Widget cancelButton = FlatButton(
-      child: Text("لا"),
+    Widget cancelButton = TextButton(
+      child: const Text("لا"),
       onPressed: () {
         setState(() {
           Navigator.of(context).pop();
         });
       },
     );
-    Widget continueButton = FlatButton(
-      child: Text("نعم"),
+    Widget continueButton = TextButton(
+      child: const Text("نعم"),
       onPressed: () {
         setState(() {
           isTrue = false;
           providerH.deleteMasrof(
-            myMasrofs.id,
+            myMasrofs.id!,
             providerM.tables[widget.index],
           );
           Navigator.pop(context);
@@ -164,7 +171,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
         margin: EdgeInsets.zero,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Text(
               "حذف المنتج",
               textDirection: TextDirection.rtl,
@@ -179,7 +186,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
           ],
         ),
       ),
-      content: Text(
+      content: const Text(
         "هل تريد حذف هذا المنتج نهائيًا؟",
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.start,
@@ -204,7 +211,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
 // _wantDelete() {
   _showLimitAlert(BuildContext context) {
     // set up the AlertDialog
-    Widget alert = AlertDialog(
+    Widget alert = const AlertDialog(
       content: Text(
         "تم الوصول إلى الحد الأقصى لهذا الإسبوع...",
         textDirection: TextDirection.rtl,
@@ -233,17 +240,17 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
           crossAxisCount: orientation == Orientation.landscape ? 3 : 2),
       controller: _scrollController,
       scrollDirection: Axis.vertical,
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
         Masrofna myMasrofs = Masrofna.fromMyMap(snapshot.data[index]);
         var screenSize = MediaQuery.of(context).size;
         var orientation = MediaQuery.of(context).orientation;
-        if (myMasrofs.weekMoney >= 500) {
+        if (myMasrofs.weekMoney! >= 500) {
           // setState(() {
           isTrue = true;
           // });
-        } else if (myMasrofs.weekMoney < 500) {
+        } else if (myMasrofs.weekMoney! < 500) {
           // setState(() {
           isTrue = false;
           // });
@@ -255,11 +262,11 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
               ? screenSize.width * 0.50
               : screenSize.width * 0.25,
           // height: 390,
-          margin: EdgeInsets.all(5.0),
+          margin: const EdgeInsets.all(5.0),
           // padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
             color: index.isEven ? kColors[0] : kColors[1],
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(14),
             ),
           ),
@@ -268,7 +275,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Icons column
-              Container(
+              SizedBox(
                 width: screenSize.width * 0.12,
                 // color: Colors.green,
                 child: Column(
@@ -311,11 +318,9 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
                                     MaterialPageRoute(
                                       builder: (_) => UpdateMasrof(
                                         headerTitle:
-                                            '${myMasrofs.headerTitle[widget.index]}',
-                                        titles:
-                                            '${myMasrofs.titles[widget.index]}',
-                                        tables:
-                                            '${myMasrofs.tables[widget.index]}',
+                                            myMasrofs.headerTitle[widget.index],
+                                        titles: myMasrofs.titles[widget.index],
+                                        tables: myMasrofs.tables[widget.index],
                                         masrof: myMasrofs,
                                         index: widget.index,
                                       ),
@@ -351,153 +356,145 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
                               ),
                             ),
                           )
-                        : Text(''),
+                        : const Text(''),
                   ],
                 ),
               ),
 
               // Text column
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    // Item
-                    Text(
-                      'المنتج: ${myMasrofs.product}',
-                      textAlign: TextAlign.right,
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.blueGrey[500],
-                      ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Item
+                  Text(
+                    'المنتج: ${myMasrofs.product}',
+                    textAlign: TextAlign.right,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.blueGrey[500],
                     ),
-                    kSizedHSmall,
-                    // Price
-                    Container(
-                      // width: screenSize.width * 0.80,
-                      // color: Colors.red,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 3.0),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${myMasrofs.price}',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.blueGrey[400],
-                                fontFamily: 'Montserrat',
-                              ),
-                            ),
-                            Text(
-                              'السعر: ',
-                              overflow: TextOverflow.visible,
-                              textAlign: TextAlign.right,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.blueGrey[400],
-                              ),
-                            ),
-                          ],
+                  ),
+                  kSizedHSmall,
+                  // Price
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${myMasrofs.price}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
+                            fontFamily: 'Montserrat',
+                          ),
                         ),
-                      ),
-                    ),
-                    kSizedHSmall,
-
-                    // No of Items
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${myMasrofs.noItems}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.blueGrey[400],
-                              fontFamily: 'Montserrat',
-                            ),
+                        Text(
+                          'السعر: ',
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
                           ),
-                          Text(
-                            'العدد: ',
-                            overflow: TextOverflow.visible,
-                            textAlign: TextAlign.right,
-                            textDirection: TextDirection.rtl,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.blueGrey[400],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    kSizedHSmall,
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 3.0),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.end,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${(myMasrofs.total)}',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.blueGrey[400],
-                                fontFamily: 'Montserrat',
-                              ),
-                            ),
-                            Text(
-                              'المجموع: ',
-                              overflow: TextOverflow.visible,
-                              textAlign: TextAlign.right,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.blueGrey[400],
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
+                      ],
                     ),
-                    kSizedHSmall,
+                  ),
+                  kSizedHSmall,
 
-                    // No of Items
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '$myDate',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.blueGrey[400],
-                              fontFamily: 'Montserrat',
-                            ),
+                  // No of Items
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${myMasrofs.noItems}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
+                            fontFamily: 'Montserrat',
                           ),
-                          Text(
-                            'التاريخ: ',
-                            overflow: TextOverflow.visible,
-                            textAlign: TextAlign.right,
-                            textDirection: TextDirection.rtl,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.blueGrey[400],
-                            ),
+                        ),
+                        Text(
+                          'العدد: ',
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  kSizedHSmall,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${(myMasrofs.total)}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                        Text(
+                          'المجموع: ',
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  kSizedHSmall,
+
+                  // No of Items
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          myDate,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                        Text(
+                          'التاريخ: ',
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.rtl,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blueGrey[400],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -508,7 +505,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
 
   Widget _viewReceipt(
       Size screenSize, BuildContext context, Masrofna myMasrofs) {
-    return Container(
+    return SizedBox(
       width: screenSize.width,
       height: screenSize.height,
       child: SafeArea(
@@ -520,7 +517,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
               alignment: Alignment.center,
               child: InteractiveViewer(
                 child: Image.file(
-                  File(myMasrofs.img),
+                  File(myMasrofs.img!),
                   fit: BoxFit.cover,
                   // width: screenSize.width,
                   // height: screenSize.height,
@@ -533,18 +530,16 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
               right: 0,
               child: Align(
                   alignment: Alignment.center,
-                  child: Container(
-                    child: ClipOval(
-                      child: Material(
-                        child: Ink(
-                          color: Colors.amber,
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            color: Colors.black,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                  child: ClipOval(
+                    child: Material(
+                      child: Ink(
+                        color: Colors.amber,
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_forward),
+                          color: Colors.black,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                     ),
@@ -578,7 +573,7 @@ class _ViewMasrofnaState extends State<ViewMasrofna>
         }
         // });
       },
-      child: Icon(
+      child: const Icon(
         Icons.add,
       ),
     );

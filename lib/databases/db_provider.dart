@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class Masrofna with ChangeNotifier {
   // Fields
-  int _id;
-  String _product;
-  double _price;
-  double _noItems;
-  double _total;
-  double _weekMoney;
-  String _img;
+  int? _id;
+  String? _product;
+  double? _price;
+  double? _noItems;
+  double? _total;
+  double? _weekMoney;
+  String? _img;
 
   List<String> titles = [
     'الأول',
@@ -46,13 +46,13 @@ class Masrofna with ChangeNotifier {
   }
 
   // Getter
-  int get id => _id;
-  String get product => _product;
-  double get price => _price;
-  double get noItems => _noItems;
-  double get total => _total;
-  double get weekMoney => _weekMoney;
-  String get img => _img;
+  int? get id => _id;
+  String? get product => _product;
+  double? get price => _price;
+  double? get noItems => _noItems;
+  double? get total => _total;
+  double? get weekMoney => _weekMoney;
+  String? get img => _img;
 
   // Methods
   masronfa(Map<String, dynamic> objec) async {
@@ -91,5 +91,6 @@ class Masrofna with ChangeNotifier {
     };
   }
 
+  @override
   notifyListeners();
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:masrofnaa/ui/shared/export.dart';
+import 'package:provider/provider.dart';
+import '../shared/export.dart';
 
 class UpdateMasrof extends StatefulWidget {
-  UpdateMasrof({
-    @required this.headerTitle,
-    @required this.titles,
-    @required this.tables,
-    @required this.masrof,
-    @required this.index,
+  const UpdateMasrof({
+    required this.headerTitle,
+    required this.titles,
+    required this.tables,
+    required this.masrof,
+    required this.index,
   });
   final String headerTitle;
   final String titles;
@@ -23,14 +24,14 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
   final _priceController = TextEditingController();
   final _noItemsController = TextEditingController();
 
-  DBHelper helper;
+  late DBHelper helper;
 
   @override
   void initState() {
     super.initState();
     helper = DBHelper();
 
-    _productController.text = widget.masrof.product;
+    _productController.text = widget.masrof.product!;
     _productController.addListener(() {
       _productController.value = _productController.value.copyWith(
         text: _productController.text,
@@ -80,7 +81,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             centerTitle: true,
-            title: Text(
+            title: const Text(
               'تعديل المنتج',
               style: TextStyle(
                 fontSize: 18,
@@ -88,14 +89,14 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                 fontFamily: 'AJ',
               ),
             ),
-            leading: Text(''),
+            leading: const Text(''),
             backgroundColor: Colors.white,
             elevation: 0.5,
             actions: [
               Align(
                 alignment: Alignment.center,
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_forward,
                     color: Colors.black54,
                   ),
@@ -123,7 +124,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                     controller: _productController,
                     textAlign: TextAlign.right,
                     decoration: kInputDecoration,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'AJ',
                     ),
                   ),
@@ -131,7 +132,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: _priceController,
-                    style: TextStyle(fontFamily: 'Montserrat'),
+                    style: const TextStyle(fontFamily: 'Montserrat'),
                     textAlign: TextAlign.right,
                     decoration: kInputDecoration,
                   ),
@@ -139,23 +140,23 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: _noItemsController,
-                    style: TextStyle(fontFamily: 'Montserrat'),
+                    style: const TextStyle(fontFamily: 'Montserrat'),
                     textAlign: TextAlign.right,
-                    inputFormatters: [],
+                    inputFormatters: const [],
                     decoration: kInputDecoration,
                   ),
                   kSizedHMedium,
                   Container(
                     width: screenSize.width * 0.35,
                     height: 45,
-                    margin: EdgeInsets.all(7.0),
-                    child: FlatButton(
-                      color: Colors.blue,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(1000),
-                      ),
+                    margin: const EdgeInsets.all(7.0),
+                    child: TextButton(
+                      // color: Colors.blue,
+                      // padding: const EdgeInsets.symmetric(
+                      //     horizontal: 40, vertical: 10),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(1000),
+                      // ),
                       onPressed: () async {
                         setState(() {
                           final updateMyMasrof = Masrofna({
@@ -177,7 +178,7 @@ class _UpdateMasrofState extends State<UpdateMasrof> {
                           );
                         });
                       },
-                      child: Text(
+                      child: const Text(
                         'تعديل',
                         style: TextStyle(
                           fontSize: 16,

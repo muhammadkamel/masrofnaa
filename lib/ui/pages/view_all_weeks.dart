@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masrofnaa/ui/shared/export.dart';
+import '../shared/export.dart';
 
 class ViewWeeks extends StatefulWidget {
   @override
@@ -7,7 +7,7 @@ class ViewWeeks extends StatefulWidget {
 }
 
 class _ViewWeeksState extends State<ViewWeeks> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -19,7 +19,7 @@ class _ViewWeeksState extends State<ViewWeeks> {
       alignment: Alignment.center,
       child: Container(
         // color: Colors.red,
-        color: Color(0xfff9f9f9),
+        color: const Color(0xfff9f9f9),
         height: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -30,7 +30,7 @@ class _ViewWeeksState extends State<ViewWeeks> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: const [
                   CustomWeek(index: 1),
                   CustomWeek(index: 0),
                 ],
@@ -38,12 +38,12 @@ class _ViewWeeksState extends State<ViewWeeks> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: const [
                   CustomWeek(index: 3),
                   CustomWeek(index: 2),
                 ],
               ),
-              CustomWeek(index: 4),
+              const CustomWeek(index: 4),
               kSizedHMedium,
             ],
           ),
@@ -52,62 +52,27 @@ class _ViewWeeksState extends State<ViewWeeks> {
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    return showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              // title: Text('Confirm'),
-              content: Text(
-                'هل تريد حقًا الخروج من البرنامج؟',
-                style: TextStyle(),
-                textAlign: TextAlign.right,
-                textDirection: TextDirection.rtl,
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('لا'),
-                  onPressed: () {
-                    Navigator.of(context).pop(false); //Will not exit the App
-                  },
-                ),
-                FlatButton(
-                  child: Text('نعم'),
-                  onPressed: () {
-                    Navigator.of(context).pop(true); //Will exit the App
-                  },
-                )
-              ],
-            );
-          },
-        ) ??
-        false;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onBackPressed,
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: Text(
-            'مصروفنا',
-            style: TextStyle(
-              fontSize: 21,
-              color: Colors.black87,
-              fontFamily: 'AJ',
-            ),
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
+          'مصروفنا',
+          style: TextStyle(
+            fontSize: 21,
+            color: Colors.black87,
+            fontFamily: 'AJ',
           ),
-          elevation: 0.3,
-          backgroundColor: Colors.white,
-          leading: Text(''),
         ),
-        body: _viewAllWeeks(),
+        elevation: 0.3,
+        backgroundColor: Colors.white,
+        leading: const Text(''),
       ),
+      body: _viewAllWeeks(),
     );
   }
 }

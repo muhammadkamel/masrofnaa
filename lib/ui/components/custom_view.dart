@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:masrofnaa/ui/shared/export.dart';
+import 'package:provider/provider.dart';
+import '../shared/export.dart';
 
 class CustomView extends StatefulWidget {
-  CustomView({this.snapshot, @required this.index, this.child});
-  final Masrofna snapshot;
+  const CustomView({
+    this.snapshot,
+    required this.index,
+    required this.child,
+  });
+  final Masrofna? snapshot;
   final int index;
-  final Widget child;
+  final Widget? child;
   @override
   _CustomViewState createState() => _CustomViewState();
 }
@@ -26,7 +31,10 @@ class _CustomViewState extends State<CustomView> {
         setState(() {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (_) => ViewMasrofna(index: widget.index),
+                builder: (_) => ViewMasrofna(
+                  index: widget.index,
+                  imgs: '',
+                ),
               ),
               (route) => false);
         });
@@ -44,9 +52,9 @@ class _CustomViewState extends State<CustomView> {
             height: orientation == Orientation.portrait
                 ? screenSize.height * 0.25
                 : screenSize.height * 0.45,
-            margin: EdgeInsets.all(7.0),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.all(7.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(kRadiusMedium),
               boxShadow: [
@@ -62,18 +70,14 @@ class _CustomViewState extends State<CustomView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // Text column
-                      Container(
-                        // color: Colors.greenAccent,
-
-                        child: Center(
-                          child: Text(
-                            'إجمالي المبلغ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Color(0xff707070),
-                              fontFamily: 'AJ',
-                            ),
+                      const Center(
+                        child: Text(
+                          'إجمالي المبلغ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Color(0xff707070),
+                            fontFamily: 'AJ',
                           ),
                         ),
                       ),
@@ -82,17 +86,14 @@ class _CustomViewState extends State<CustomView> {
 
                       // Text column
 
-                      Container(
-                        // color: Colors.greenAccent,
-                        child: Center(
-                          child: Text(
-                            '${widget.snapshot.weekMoney}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 23,
-                              color: Color(0xff707070),
-                              fontFamily: 'Montserrat',
-                            ),
+                      Center(
+                        child: Text(
+                          '${widget.snapshot!.weekMoney}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 23,
+                            color: Color(0xff707070),
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                       ),
@@ -107,7 +108,7 @@ class _CustomViewState extends State<CustomView> {
             right: 0,
             left: 0,
             child: Text(
-              '$headerTitle',
+              headerTitle,
               textAlign: TextAlign.center,
               style: kTitleStyle,
             ),
@@ -122,11 +123,11 @@ class _CustomViewState extends State<CustomView> {
               child: Container(
                 width: 25,
                 height: 25,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.red,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_forward,
                   color: Colors.white,
                   size: 15,

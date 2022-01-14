@@ -89,8 +89,8 @@ const kImageIcon = Icon(
 );
 
 List<Color> kColors = [
-  Color(0xFFE3F2FD).withOpacity(0.3),
-  Color(0xFFE8F5E9).withOpacity(0.3),
+  const Color(0xFFE3F2FD).withOpacity(0.3),
+  const Color(0xFFE8F5E9).withOpacity(0.3),
 ];
 
 // const String kNoPrice = 'لم يتم إضافة أي منتج';
@@ -102,28 +102,28 @@ const kSizedHMedium = SizedBox(height: 20);
 const kSizedHLarge = SizedBox(height: 30);
 
 final kInputDecoration = InputDecoration(
-  contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-  hintStyle: TextStyle(
+  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 17),
+  hintStyle: const TextStyle(
     fontSize: 16,
     fontFamily: 'Montserrat',
   ),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(100.0),
-    borderSide: BorderSide(
+    borderSide: const BorderSide(
       width: 2,
       color: Colors.blue,
     ),
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(100.0),
-    borderSide: BorderSide(
+    borderSide: const BorderSide(
       width: 2,
       color: Colors.blue,
     ),
   ),
   disabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(100.0),
-    borderSide: BorderSide(
+    borderSide: const BorderSide(
       width: 2,
       color: Colors.green,
     ),
@@ -135,6 +135,6 @@ List<TextInputFormatter> kInputNoFormats = [
     RegExp('[0-9, .]'),
   ),
   FilteringTextInputFormatter.deny(
-    new RegExp(r"\s\b|\b\s"),
+    RegExp(r"\s\b|\b\s"),
   ),
 ];

@@ -1,60 +1,52 @@
 name: masrofnaa
 description: A new personal home app.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none"
 
-version: 0.0.01
+version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.15.1 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  provider:
-  hooks_riverpod: ^0.12.1
-  sqflite:
-  path:
-  intl:
-  image_picker:
-  shared_preferences:
-  path_provider:
+  provider: ^6.0.2
+  sqflite: ^2.0.2
+  path: ^1.8.0
+  intl: ^0.17.0
+  image_picker: ^0.8.4+4
+  shared_preferences: ^2.0.12
+  path_provider: ^2.0.8
   flutter_localizations:
     sdk: flutter
-  # easy_localization:
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_lints: ^1.0.4
 
 flutter:
-
   uses-material-design: true
 
   assets:
     - images/dollar.png
   #   - images/a_dot_ham.jpeg
 
-  
   fonts:
-  # First Font
-  #   - family: GE
-  #     fonts:
-  #       - asset: fonts/GE_SS.otf
-  # Second Font
+    # First Font
+    #   - family: GE
+    #     fonts:
+    #       - asset: fonts/GE_SS.otf
+    # Second Font
     - family: Montserrat
       fonts:
         - asset: fonts/Montserrat.ttf
-  # Third Font
+    # Third Font
     - family: Greta
       fonts:
         - asset: fonts/Greta.ttf
-  # Fourth Font
+    # Fourth Font
     - family: AJ
       fonts:
         - asset: fonts/alj.ttf

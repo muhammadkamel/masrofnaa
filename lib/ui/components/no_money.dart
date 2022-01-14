@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:masrofnaa/ui/shared/export.dart';
+
+import '../shared/export.dart';
 
 class NoMoney extends StatefulWidget {
   const NoMoney({
-    @required this.orientation,
-    @required this.screenSize,
-    @required this.headerTitle,
-    @required this.index,
+    required this.orientation,
+    required this.screenSize,
+    required this.headerTitle,
+    required this.index,
   });
 
   final Orientation orientation;
@@ -26,7 +27,10 @@ class _NoMoneyState extends State<NoMoney> {
         setState(() {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (_) => ViewMasrofna(index: widget.index),
+                builder: (_) => ViewMasrofna(
+                  index: widget.index,
+                  imgs: '',
+                ),
               ),
               (route) => false);
         });
@@ -44,9 +48,9 @@ class _NoMoneyState extends State<NoMoney> {
             height: widget.orientation == Orientation.portrait
                 ? widget.screenSize.height * 0.25
                 : widget.screenSize.height * 0.45,
-            margin: EdgeInsets.all(7.0),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.all(7.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(kRadiusMedium),
               boxShadow: [
@@ -78,11 +82,11 @@ class _NoMoneyState extends State<NoMoney> {
               child: Container(
                 width: 25,
                 height: 25,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.red,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_forward,
                   color: Colors.white,
                   size: 15,
@@ -96,7 +100,7 @@ class _NoMoneyState extends State<NoMoney> {
             right: 0,
             left: 0,
             child: Text(
-              '${widget.headerTitle.headerTitle[widget.index]}',
+              widget.headerTitle.headerTitle[widget.index],
               textAlign: TextAlign.center,
               style: kTitleStyle,
             ),
